@@ -1,5 +1,6 @@
 <template>
   <div id="payment">
+    <div><Location/></div>
     <div class="top-bar">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
         <span class="sf-search-bar__icon">
@@ -82,6 +83,7 @@ import { ref, onBeforeMount } from '@vue/composition-api';
 import LoadingCircle from '~/components/LoadingCircle';
 
 import CardContent from '~/components/CardContent.vue';
+import Location from '../components/Location'
 
 export default {
   name: 'Orders',
@@ -90,6 +92,7 @@ export default {
     SfIcon,
     CardContent,
     LoadingCircle,
+    Location
   },
   setup(_, context) {
     const orders = ref([]);

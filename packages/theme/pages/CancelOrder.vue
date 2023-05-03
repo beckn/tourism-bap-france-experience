@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <div> <Location/></div>
   <div class="cancel-page">
     <div class="top-bar">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
@@ -80,8 +82,10 @@
       </div>
     </ModalSlide>
   </div>
+  </div>
 </template>
 <script>
+import  Location from'../components/Location'
 import ModalSlide from '~/components/ModalSlide.vue';
 import { ref } from '@vue/composition-api';
 import { SfIcon, SfRadio } from '@storefront-ui/vue';
@@ -91,7 +95,8 @@ export default {
   components: {
     ModalSlide,
     SfIcon,
-    SfRadio
+    SfRadio,
+    Location
   },
   setup(_, context) {
     const openCancelModal = ref(false);

@@ -1,8 +1,10 @@
 <template>
   <div>
+    
     <TopBar class="desktop-only" />
     <div id="layout" >
       <AppHeader />
+    <Location/>
       <nuxt />
       <!-- <BottomNavigation /> -->
       <CartSidebar />
@@ -12,6 +14,7 @@
 </template>
 
 <script>
+import Location from '../components/Location';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import TopBar from '~/components/TopBar.vue';
@@ -26,7 +29,8 @@ export default {
     AppHeader,
     BottomNavigation,
     CartSidebar,
-    LoginModal
+    LoginModal,
+    Location
   }
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div id="payment">
+    <div><Location /></div>
     <div class="top-bar header-top">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
         <span class="sf-search-bar__icon">
@@ -72,9 +73,7 @@
           alt="Vue Storefront Next"
         />
       </div> -->
-      <div class="sub-heading">
-      
-      </div>
+      <div class="sub-heading"></div>
 
       <div style="background:white;">
         <SfImage
@@ -130,6 +129,7 @@ import { ref, computed, onBeforeMount, watch } from '@vue/composition-api';
 
 import LoadingCircle from '~/components/LoadingCircle';
 import { useCart, useConfirmOrder, cartGetters } from '@vue-storefront/beckn';
+import Location from '../components/Location';
 
 import Card from '~/components/Card.vue';
 
@@ -147,7 +147,8 @@ export default {
     CardContent,
     SfRadio,
     Footer,
-    LoadingCircle
+    LoadingCircle,
+    Location
   },
   methods: {
     openCart() {

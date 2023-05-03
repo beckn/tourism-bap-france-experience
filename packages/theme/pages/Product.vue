@@ -1,5 +1,7 @@
 <template>
+  
   <div class="Product-container" id="product">
+    <div><Location/></div>
     <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
       <span class="sf-search-bar__icon">
         <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
@@ -67,7 +69,7 @@ import {
   SfButton,
   SfColor
 } from '@storefront-ui/vue';
-
+import Location from '../components/Location'
 import AddToCart from '~/components/AddToCart.vue';
 import BookNow from '~/components/BookNow.vue';
 import ImagesScroll from '~/components/ImagesScroll.vue';
@@ -164,7 +166,8 @@ export default {
     SfAccordion,
     ImagesScroll,
     Footer,
-    BookNow
+    BookNow,
+    Location
   }
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div id="payment">
+    <div><Location/></div>
     <div class="top-bar header-top"></div>
     <div class="content header-push">
       <div class="sub-heading">
@@ -31,6 +32,7 @@ import { SfButton, SfRadio, SfIcon } from '@storefront-ui/vue';
 // import { useCart } from '@vue-storefront/beckn';
 
 import Card from '~/components/Card.vue';
+import Location from '../components/Location'
 
 import Footer from '~/components/Footer.vue';
 import CardContent from '~/components/CardContent.vue';
@@ -43,6 +45,7 @@ export default {
     CardContent,
     SfRadio,
     Footer,
+    Location
   },
   setup(_, context) {
     const parentOrderId = context.root.$route.query.id;

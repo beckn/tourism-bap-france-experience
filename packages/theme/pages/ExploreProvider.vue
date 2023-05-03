@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <div><Location/></div>
   <div class="explore-page">
     <div class="head"></div>
     <div class="provider-head flexy-center h-padding">
@@ -114,6 +116,7 @@
       </Footer>
     </div>
   </div>
+  </div>
 </template>
 <script>
 import { SfIcon, SfSearchBar, SfButton } from '@storefront-ui/vue';
@@ -122,6 +125,7 @@ import LoadingCircle from '~/components/LoadingCircle';
 import ProductCard from '~/components/ProductCard';
 import Footer from '~/components/Footer';
 import { useUiState } from '~/composables';
+import Location from '../components/Location'
 import {
   productGetters,
   providerGetters,
@@ -139,7 +143,8 @@ export default {
     SfSearchBar,
     SfButton,
     ProductCard,
-    Footer
+    Footer,
+    Location
   },
   setup(_, context) {
     const { selectedLocation, explorePageData, updateExpPageData } = useUiState();

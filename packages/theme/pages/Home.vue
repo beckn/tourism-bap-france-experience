@@ -1,7 +1,9 @@
 <template>
-  <div id="home" class="home-page">
-    <OpenSearch />
-    <div @click="openCart"></div>
+  <div>
+    <div id="home" class="home-page">
+      <OpenSearch />
+      <div @click="openCart"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -27,22 +29,21 @@ export default {
 
     onBeforeMount(() => {
       clear();
-      localStorage.clear()
-    })
+      localStorage.clear();
+    });
 
-    onMounted(
-      () => {
-        if (localStorage.getItem('cartData')) {
-          const cartData = JSON.parse(localStorage.getItem('cartData'));
-          const days = helpers.calculateDays(cartData.cartTime, new Date());
-          if (days > 7) {
-            console.log('removed');
-            // localStorage.removeItem('cartData');
-            // localStorage.removeItem('transactionId');
-          }
+    onMounted(() => {
+      if (localStorage.getItem('cartData')) {
+        const cartData = JSON.parse(localStorage.getItem('cartData'));
+        const days = helpers.calculateDays(cartData.cartTime, new Date());
+        if (days > 7) {
+          console.log('removed');
+          // localStorage.removeItem('cartData');
+          // localStorage.removeItem('transactionId');
         }
-        load();
-      });
+      }
+      load();
+    });
   }
 };
 </script>
@@ -58,5 +59,8 @@ export default {
   background-position: center center;
   background-size: cover;
   overflow: hidden;
+}
+.header {
+  z-index: 1;
 }
 </style>

@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <Location/>
   <div v-if="cartGetters.getTotalItems(cart)">
     <div class="top-bar header-top">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
@@ -97,6 +99,7 @@
         :mobile="shippingAddress.mobile"
         :pincode="shippingAddress.pincode"
         :building="shippingAddress.building"
+        :age="shippingAddress.age"
       />
       <Card v-if="!isShippingAddressFilled">
         <CardContent>
@@ -154,6 +157,7 @@
         :mobile="billingAddress.mobile"
         :pincode="billingAddress.pincode"
         :building="billingAddress.building"
+        :age="billingAddress.age"
       />
 
       <div v-show="isValidCart(cart)" class="sub-heading">
@@ -163,38 +167,35 @@
       <div v-show="isValidCart(cart)">
         <Card>
           <!-- <SfAccordion> -->
-            <!-- <SfAccordionItem :header="'Subtotal'"> -->
-              <div>
-                {{ log('value in he cart', cart) }}
+          <!-- <SfAccordionItem :header="'Subtotal'"> -->
+          <div>
+            {{ log('value in he cart', cart) }}
+            <div
+              :key="bppId"
+              v-for="(value, bppId) in cartGetters.getQuoteItem(cart)"
+            >
+              <div
+                :key="providerId"
+                v-for="(valuePerProvider, providerId) in value"
+              >
                 <div
-                  :key="bppId"
-                  v-for="(value, bppId) in cartGetters.getQuoteItem(cart)"
+                  :key="id"
+                  v-for="(breakup, id) in valuePerProvider.breakup"
                 >
-                  <div
-                    :key="providerId"
-                    v-for="(valuePerProvider, providerId) in value"
-                  >
-                      <div  
-                     
-                      :key="id"
-                      v-for="(breakup, id) in valuePerProvider.breakup"
-                    >
-                      <CardContent class="flex-space-bw" >
-                        <div>{{ breakup.title }}</div>
-                        <div>₹ {{ formatPrice(breakup.price.value) }}</div>
-                      </CardContent>
-                    </div>
-                    <hr>
-                    <CardContent class="flex-space-bw">
-                      <div>Subtotal :</div>
-                      <div >
-                        ₹ {{ formatPrice(valuePerProvider.price.value) }}
-                      </div>
-                    </CardContent>
-                  </div>
+                  <CardContent class="flex-space-bw">
+                    <div>{{ breakup.title }}</div>
+                    <div>₹ {{ formatPrice(breakup.price.value) }}</div>
+                  </CardContent>
                 </div>
+                <hr />
+                <CardContent class="flex-space-bw">
+                  <div>Subtotal :</div>
+                  <div>₹ {{ formatPrice(valuePerProvider.price.value) }}</div>
+                </CardContent>
               </div>
-            <!-- </SfAccordionItem> -->
+            </div>
+          </div>
+          <!-- </SfAccordionItem> -->
           <!-- </SfAccordion> -->
         </Card>
       </div>
@@ -265,6 +266,7 @@
       />
     </ModalSlide>
   </div>
+  </div>
 </template>
 <script>
 import {
@@ -278,6 +280,7 @@ import {
   SfInput,
   SfIcon
 } from '@storefront-ui/vue';
+import  Location from '../components/Location'
 import ModalSlide from '~/components/ModalSlide.vue';
 import AddressInputs from '~/components/AddressInputs.vue';
 import LoadingCircle from '~/components/LoadingCircle';
@@ -306,6 +309,7 @@ import helpers, { createOrderRequest } from '../helpers/helpers';
 export default {
   name: 'Checkout',
   components: {
+    Location,
     SfButton,
     SfSteps,
     SfSidebar,

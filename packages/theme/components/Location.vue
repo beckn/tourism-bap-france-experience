@@ -1,9 +1,9 @@
 <template>
   <client-only>
     <div class="location-blk d-flex w-100">
-      <SfCircleIcon class="sf-circle-icon--large left-pos" aria-label="marker" icon="marker" icon-size="18px" />
+      <!-- <SfCircleIcon class="sf-circle-icon--large left-pos" aria-label="marker" icon="marker" icon-size="18px" /> -->
       <div class="layout-container">
-        <div class="location-content">
+        <!-- <div class="location-content">
           <client-only>
             <div class="location-icon">
               <slot>
@@ -51,22 +51,22 @@
               </div>
             </template>
           </div>
-        </div>
+        </div> -->
         <div class="user-cart-content">
-          <div class="cart-content">
+          <!-- <div class="cart-content">
             <nuxt-link :to="localePath('/cart')">
               <SfButton class="button-pos sf-button--pure">
                 <SfImage src="/icons/cart.png" alt="icon" />
 
                 <!-- //<SfIcon icon="empty_cart" /> -->
-              </SfButton>
-            </nuxt-link>
-          </div>
+              <!-- </SfButton> -->
+            <!-- </nuxt-link> -->
+          <!-- </div> --> 
           <div class="user-content">
             <div>
               <div>
                 <div>
-                  <SfButton class="button-pos sf-button--pure">
+                  <!-- <SfButton class="button-pos sf-button--pure"> -->
                     <!-- <SfIcon icon="profile" /> -->
                     <SfImage src="/icons/profile.png" alt="icon" />
                     <!-- <SfIcon
@@ -79,7 +79,7 @@
                           icon="chevron_down"
                           size="xxs"
                         /> -->
-                  </SfButton>
+                  <!-- </SfButton> -->
                 </div>
               </div>
             </div>
@@ -198,8 +198,9 @@ export default {
 
 .layout-container {
   display: flex;
-  justify-content: space-between;
+  justify-content:flex-end;
   width: 100%;
+  padding: 15px;
 }
 
 .notShown {
@@ -236,7 +237,7 @@ export default {
 .user-cart-content {
   display: flex;
   justify-content: space-between;
-  width: 111px;
+  //width: 111px;
   align-items: center;
 }
 

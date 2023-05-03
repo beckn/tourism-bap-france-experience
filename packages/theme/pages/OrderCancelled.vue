@@ -1,30 +1,35 @@
 <template>
-  <div class="cancel-page">
-    <div class="top-bar"></div>
-    <div class="details">
-      <img src="/icons/cancelOrder.svg" alt="" />
-      <div class="head">Order Cancelled</div>
-      <div class="sub">
-        Your order has been Cancelled, If already paid, will get your refund
-        soon
+  <div>
+    <div><Location /></div>
+    <div class="cancel-page">
+      <div class="top-bar"></div>
+      <div class="details">
+        <img src="/icons/cancelOrder.svg" alt="" />
+        <div class="head">Order Cancelled</div>
+        <div class="sub">
+          Your order has been Cancelled, If already paid, will get your refund
+          soon
+        </div>
+        <button class="sf-button color-primary" @click="goBack">
+          <div>Go back Home</div>
+        </button>
+        <button class="sf-button color-light continue" @click="goBack">
+          <div class="f-btn-text">Continue Shopping</div>
+        </button>
       </div>
-      <button class="sf-button color-primary" @click="goBack">
-        <div>Go back Home</div>
-      </button>
-      <button class="sf-button color-light continue" @click="goBack">
-        <div class="f-btn-text">Continue Shopping</div>
-      </button>
     </div>
   </div>
 </template>
 <script>
+import Location from '../components/Location';
 import { SfIcon, SfRadio } from '@storefront-ui/vue';
 
 export default {
   name: 'OrderCancelled',
   components: {
     SfIcon,
-    SfRadio
+    SfRadio,
+    Location
   },
   setup(_, context) {
     const goBack = () => context.root.$router.push('/');
@@ -73,7 +78,7 @@ export default {
     .continue {
       margin-top: 25px;
       .f-btn-text {
-        color: #387F9A;
+        color: #387f9a;
       }
     }
   }

@@ -24,6 +24,56 @@
     <CardContent>
       <div class="address-bar-icon">
         <svg
+          width="26"
+          height="26"
+          viewBox="0 0 26 26"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17 14.6152C17 15.6557 16.5786 16.6536 15.8284 17.3893C15.0783 18.125 14.0609 18.5383 13 18.5383C11.9391 18.5383 10.9217 18.125 10.1716 17.3893C9.42143 16.6536 9 15.6557 9 14.6152"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13 10.2311V7.46191"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13 7.46154C18.4353 5.61539 13 1 13 1C13 1 7.35299 5.61539 13 7.46154Z"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.00001 14.6151C9.00023 15.6417 8.59013 16.6275 7.8577 17.361C7.12528 18.0944 6.1289 18.5171 5.08237 18.5382C2.83532 18.5843 1.00002 16.7382 1.00002 14.5343V12.9997C0.998468 12.6356 1.07044 12.2749 1.21178 11.9382C1.35313 11.6015 1.56105 11.2956 1.82355 11.0382C2.08604 10.7807 2.39793 10.5768 2.74119 10.4382C3.08446 10.2996 3.45232 10.229 3.82355 10.2305H22.1765C22.5477 10.229 22.9155 10.2996 23.2588 10.4382C23.6021 10.5768 23.914 10.7807 24.1765 11.0382C24.439 11.2956 24.6469 11.6015 24.7882 11.9382C24.9296 12.2749 25.0015 12.6356 25 12.9997V14.5343C25 16.7382 23.1647 18.5843 20.9176 18.5382C19.8711 18.5171 18.8747 18.0944 18.1423 17.361C17.4099 16.6275 16.9998 15.6417 17 14.6151"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M23.3533 17.7646V24.0762C23.3533 24.321 23.2541 24.5558 23.0776 24.7289C22.9011 24.902 22.6617 24.9993 22.4121 24.9993H3.58864C3.33902 24.9993 3.09963 24.902 2.92312 24.7289C2.74662 24.5558 2.64746 24.321 2.64746 24.0762V17.7646"
+            stroke="black"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <div class="address-text">{{ age }}</div>
+    </CardContent>
+
+    <div><hr class="sf-divider divider" /></div>
+    <CardContent>
+      <div class="address-bar-icon">
+        <svg
           width="20"
           height="24"
           viewBox="0 0 20 24"
@@ -103,6 +153,10 @@ export default {
     pincode: {
       type: String,
       default: ''
+    },
+    age: {
+      type: Number,
+      default: null
     }
   },
   setup() {}

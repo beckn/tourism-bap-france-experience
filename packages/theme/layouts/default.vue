@@ -4,7 +4,7 @@
         <!-- <TopBar class="desktop-only" /> -->
       </LazyHydrate>
       <!-- <LazyHydrate when-idle> -->
-      <AppHeader />
+      <!-- <AppHeader /> -->
       <!-- </LazyHydrate> -->
 
       <div id="layout">

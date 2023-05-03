@@ -1,5 +1,22 @@
 <template>
   <div>
+    <div class="top-bar">
+      <div>
+        <nuxt-link :to="localePath('/')">
+          <SfImage
+            src="/icons/travel.svg"
+            :width="37"
+            :height="32"
+            alt="Vue Storefront Next"
+          />
+          <span class="subtext">Travelio</span>
+        </nuxt-link>
+      </div>
+
+      <div>
+        <SfImage src="/icons/profile.png" :width="28" :height="28" alt="icon" />
+      </div>
+    </div>
     <div class="open-search header-top-space">
       <h3>
         Travel <br />
@@ -7,31 +24,63 @@
       </h3>
       <h4>for All</h4>
       <p>
-        A global marketplace to discover anything you need. Just type where you want to go and we'll take care of the
-        rest.
+        A global marketplace to discover anything you need. Just type where you
+        want to go and we'll take care of the rest.
       </p>
       <div class="open-search-input">
         <!-- <input v-on:keyup.enter="openSearch" v-model="message" :valid="false" errorMessage="errer" type="text"
           placeholder="Search for travel location" :disabled="!selectedLocation.latitude || !selectedLocation.longitude"
           v-e2e="'home-search-input'" /> -->
-        <input v-on:keyup.enter="openSearch" ref="input" @input="onInput" v-model="searchAddress" type="text"
-          errorMessage="errer" placeholder="Search for travel location" v-e2e="'home-search-input'" />
 
-        <SfButton class="button-pos sf-button--pure color-primary" :class="{
-          'is-disabled--button':
-            !searchAddress
-        }" @click="openSearch" :disabled="!searchAddress" v-e2e="'home-search-button'">
+        <SfImage
+          class="location-img"
+          src="/icons/location.svg"
+          :width="12"
+          :height="17"
+          alt="Vue Storefront Next"
+          ref="input"
+        />
 
+        <input
+          v-on:keyup.enter="openSearch"
+          ref="input"
+          @input="onInput"
+          v-model="searchAddress"
+          type="text"
+          errorMessage="errer"
+          placeholder="Search for travel location"
+          v-e2e="'home-search-input'"
+        />
+
+        <SfButton
+          class="button-pos sf-button--pure color-primary"
+          :class="{
+            'is-disabled--button': !searchAddress
+          }"
+          @click="openSearch"
+          :disabled="!searchAddress"
+          v-e2e="'home-search-button'"
+        >
           <span class="sf-search-bar__icon">
             <SfIcon color="var(--c-text)" size="18px" icon="search" />
           </span>
         </SfButton>
       </div>
 
-
-      <ul ref="locationListDropdown" v-if="showDropdown" class="home-page-location-list">
-        <li :class="{ 'location-list-item': true, 'location-list-last-item': i === searchResults.length - 1 }"
-          v-for="(result, i) in searchResults" :key="i" @click="getLocationDetails(result)">
+      <ul
+        ref="locationListDropdown"
+        v-if="showDropdown"
+        class="home-page-location-list"
+      >
+        <li
+          :class="{
+            'location-list-item': true,
+            'location-list-last-item': i === searchResults.length - 1
+          }"
+          v-for="(result, i) in searchResults"
+          :key="i"
+          @click="getLocationDetails(result)"
+        >
           {{ result.description }}
         </li>
       </ul>
@@ -66,13 +115,12 @@ export default {
 
   data() {
     return {
-      searchAddress: '',
+      searchAddress: 'Paris',
       searchResults: [],
       service: null,
       showDropdown: false,
       geocodeService: null
-    }
-
+    };
   },
 
   created() {
@@ -94,12 +142,11 @@ export default {
     }
   },
 
-
   methods: {
     onInput() {
       if (this.searchAddress.length > 0) {
         this.service.getPlacePredictions(
-          { input: this.searchAddress, types: ['geocode'], },
+          { input: this.searchAddress, types: ['geocode'] },
           (predictions, status) => {
             if (status === 'OK') {
               this.showDropdown = true;
@@ -118,7 +165,7 @@ export default {
 
     getLocationDetails(selectedLocation) {
       const { updateLocation } = useUiState();
-      localStorage.setItem('selectedLocation', selectedLocation.description)
+      localStorage.setItem('selectedLocation', selectedLocation.description);
       this.searchAddress = selectedLocation.description;
       this.geocodeService
         .geocode({ placeId: selectedLocation.place_id })
@@ -129,7 +176,6 @@ export default {
             address: selectedLocation.description
           });
 
-
           this.showDropdown = false;
           // eslint-disable-next-line no-alert
         })
@@ -138,7 +184,10 @@ export default {
 
     handleClickOutside(event) {
       // Check if the click event occurred outside of the dropdown
-      if (this.$refs.locationListDropdown && !this.$refs.locationListDropdown.contains(event.target)) {
+      if (
+        this.$refs.locationListDropdown &&
+        !this.$refs.locationListDropdown.contains(event.target)
+      ) {
         this.showDropdown = false;
       }
     }
@@ -154,12 +203,14 @@ export default {
   },
 
   setup(_, context) {
-
     const message = ref('');
     const errorMsg = ref(false);
 
     const openSearch = () => {
-      console.log('context in the file', localStorage.getItem('selectedLocation'))
+      console.log(
+        'context in the file',
+        localStorage.getItem('selectedLocation')
+      );
       if (localStorage.getItem('selectedLocation')) {
         if (errorMsg.value) errorMsg.value = false;
         context.root.$router.push({
@@ -184,6 +235,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.top-bar {
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.subtext {
+  position: relative;
+  bottom: 10px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 147.19%;
+  /* or 29px */
+
+  color: #ffffff;
+}
 .open-search {
   @media (min-width: 560px) {
     padding-top: 40px;
@@ -192,6 +262,13 @@ export default {
   }
 
   padding: 40px 20px;
+  .location-img {
+    position: relative;
+    top: 12px;
+    padding: 10px;
+    left: 5px;
+    
+  }
 
   h3 {
     font-size: 40px;
@@ -253,9 +330,9 @@ export default {
         color: #dbdbdc;
       }
 
-      &:focus {
-        border: 1px solid #387f9a !important;
-      }
+      // &:focus {
+      //   border: 1px solid #387f9a !important;
+      // }
     }
 
     button {
@@ -302,11 +379,9 @@ export default {
       color: #fbfcff;
       top: -6px;
 
-
       &.powered-by {
         font-size: 10px;
         top: -1px !important;
-
       }
     }
   }

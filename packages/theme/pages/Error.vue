@@ -25,13 +25,14 @@
   </div>
 </template>
 <script>
+import  Location from '../components/Location'
 import { SfButton, SfImage, SfHeading } from '@storefront-ui/vue';
 import { ref, onErrorCaptured } from '@vue/composition-api';
 import GoBackLink from '../components/GoBackLink.vue';
 
 export default {
   name: 'Error',
-  components: { SfButton, SfImage, SfHeading, GoBackLink },
+  components: { SfButton, SfImage, SfHeading, GoBackLink , Location},
   setup(_, context) {
     const error = ref(false);
     const goHome = () => {

@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <div> <Location/></div>
   <div id="cart">
     <div class="top-bar">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
@@ -122,6 +124,7 @@
       </div>
     </ModalSlide>
   </div>
+  </div>
 </template>
 <script>
 import {
@@ -141,6 +144,7 @@ import {
   useQuote,
   providerGetters
 } from '@vue-storefront/beckn';
+import  Location from '../components/Location'
 import ProductCardOnCart from '~/components/ProductCardOnCart';
 import Footer from '~/components/Footer';
 import ModalSlide from '~/components/ModalSlide';
@@ -164,7 +168,8 @@ export default {
     ModalSlide,
     SfInput,
     LoadingCircle,
-    helpers
+    helpers,
+    Location
   },
 
   setup(_, { root }) {

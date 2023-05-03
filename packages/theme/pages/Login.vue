@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div><Location /></div>
     <div class="top-bar">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
         <span class="sf-search-bar__icon">
@@ -90,6 +91,7 @@
 </template>
 
 <script>
+import Location from '../components/Location';
 import { SfButton, SfIcon, SfImage } from '@storefront-ui/vue';
 // import {state} from '../store/index.js'
 
@@ -99,7 +101,8 @@ export default {
   components: {
     SfIcon,
     SfButton,
-    SfImage
+    SfImage,
+    Location
   },
   setup(_, context) {
     const goBack = () => context.root.$router.back();
@@ -171,7 +174,7 @@ export default {
   h3 {
     font-size: 40px;
     font-weight: 700;
-    color: #387F9A;
+    color: #387f9a;
     line-height: 45px;
   }
   h4 {

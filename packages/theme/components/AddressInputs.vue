@@ -15,6 +15,17 @@
         :name="'Name'"
       />
       <SfInput
+        v-e2e="'name-input'"
+        :valid="!validateInput('Age')"
+        :errorMessage="validateInput('Age')"
+        v-model="address.age"
+        :type="'number'"
+        :label="'Age*'"
+         pattern="[0-9]{10}"
+         maxlength="2"
+        :name="'Age'"
+      />
+      <SfInput
         v-e2e="'mobile-input'"
         :valid="!validateInput('mobile')"
         :errorMessage="validateInput('mobile')"
@@ -102,7 +113,8 @@ export default {
         mobile: '',
         building: '',
         landmark: '',
-        address: ''
+        address: '',
+        age:null
       }
     },
     buttonEnable: { type: Boolean, default: true }
@@ -115,7 +127,8 @@ export default {
       pincode: false,
       mobile: false,
       name: false,
-      building: false
+      building: false,
+      age: false
     });
 
     const validateInput = (field) => {
@@ -125,6 +138,14 @@ export default {
         case 'Name':
           if (address.value.name && address.value.name.length < 2) {
             return 'Please enter a valid name';
+          }
+          break;
+        case 'Age':
+          if (
+            address.value.age &&
+            (!re.test(address.value.age) || address.value.age.length !== 2)
+          ) {
+            return 'Please enter a valid Age';
           }
           break;
         case 'mobile':
@@ -163,9 +184,9 @@ export default {
     const geoCoder = new window.google.maps.Geocoder();
 
     onMounted(() => {
-        address.value.mobile = '9191223433';
-        address.value.pincode = '560078'
-    })
+      address.value.mobile = '9191223433';
+      address.value.pincode = '560078';
+    });
 
     watch(
       () => address.value.pincode,
@@ -220,12 +241,14 @@ export default {
         valid.value.name &&
         valid.value.mobile &&
         valid.value.pincode &&
+        valid.value.age &&
         valid.value.building;
       return (
         valid.value.address &&
         valid.value.name &&
         valid.value.mobile &&
         valid.value.pincode &&
+        valid.value.age &&
         valid.value.building
       );
     });
