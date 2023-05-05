@@ -743,7 +743,8 @@ export default {
     const callStatus = async () => {
       const params = createStatusTrackAndSupportOrderRequest(
         order.value,
-        'order_id'
+        'order_id',
+        JSON.parse(localStorage.getItem('orderObject'))
       );
       try {
         const response = await status(params, context.root.$store.state.token);

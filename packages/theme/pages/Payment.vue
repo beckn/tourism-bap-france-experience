@@ -1,6 +1,8 @@
 <template>
   <div id="payment">
-    <div><Location /></div>
+    <div>
+      <Location />
+    </div>
     <div class="top-bar header-top">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
         <span class="sf-search-bar__icon">
@@ -18,11 +20,7 @@
       </div>
       <Card v-if="order.cart">
         <div v-for="(value, bppId) in order.cart.quoteItem" :key="bppId">
-          <div
-            :key="providerId"
-            v-for="(valuePerProvider, providerId) in value"
-            class="address-text bold"
-          >
+          <div :key="providerId" v-for="(valuePerProvider, providerId) in value" class="address-text bold">
             <div :key="id" v-for="(breakup, id) in valuePerProvider.breakup">
               <CardContent class="flex-space-bw">
                 <div class="address-text">
@@ -79,15 +77,8 @@
       <Card>
         <CardContent>
           <!-- <div class="address-text color-def">Add Shipping Details</div> -->
-          <SfRadio
-            class="sf-radio--transparent"
-            :name="'Payment'"
-            :value="'Pay on arrival'"
-            label="Pay on arrival"
-            :disabled="false"
-            :selected="paymentMethod"
-            @change="changePaymentMethod"
-          />
+          <SfRadio class="sf-radio--transparent" :name="'Payment'" :value="'Pay on arrival'" label="Pay on arrival"
+            :disabled="false" :selected="paymentMethod" @change="changePaymentMethod" />
         </CardContent>
       </Card>
 
@@ -103,46 +94,21 @@
       <div class="sub-heading"></div>
 
       <div style="background:white;">
-        <SfImage
-          src="/icons/Credit & Debit cards 1.svg"
-          :width="303"
-          :height="215"
-          alt="Vue Storefront Next"
-        />
+        <SfImage src="/icons/Credit & Debit cards 1.svg" :width="303" :height="215" alt="Vue Storefront Next" />
       </div>
       <div class="p-name">UPI</div>
       <div class="pay">
-        <SfImage
-          src="/icons/UPI 1.svg"
-          :width="375"
-          :height="257"
-          alt="Vue Storefront Next"
-        />
+        <SfImage src="/icons/UPI 1.svg" :width="375" :height="257" alt="Vue Storefront Next" />
       </div>
     </div>
-    <Footer
-      class="footer-fixed"
-      :buttonText="'Confirm'"
-      :buttonEnable="isPayConfirmActive"
-      :totalPrice="order.cart.totalPrice"
-      :totalItem="cartGetters.getTotalItems(order.cart)"
-      @buttonClick="proceedToConfirm"
-    >
+    <Footer class="footer-fixed" :buttonText="'Confirm'" :buttonEnable="isPayConfirmActive"
+      :totalPrice="order.cart.totalPrice" :totalItem="cartGetters.getTotalItems(order.cart)"
+      @buttonClick="proceedToConfirm">
       <template v-slot:buttonIcon>
-        <svg
-          width="25"
-          height="19"
-          viewBox="0 0 25 19"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="25" height="19" viewBox="0 0 25 19" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M1.0166 7.10181H23.0166M3.0166 1.10181H21.0166C22.1212 1.10181 23.0166 1.99724 23.0166 3.10181V15.1018C23.0166 16.2064 22.1212 17.1018 21.0166 17.1018H3.0166C1.91203 17.1018 1.0166 16.2064 1.0166 15.1018V3.10181C1.0166 1.99724 1.91203 1.10181 3.0166 1.10181Z"
-            stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+            stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </template>
     </Footer>
@@ -304,7 +270,8 @@ export default {
               {
                 descriptor: {
                   name: itemsInTheCart.items[0].descriptor.name,
-                  images: itemsInTheCart.items[0].descriptor.images
+                  images: itemsInTheCart.items[0].descriptor.images,
+                  short_desc: itemsInTheCart.items[0].descriptor.short_desc
                 },
                 price: {
                   value: itemsInTheCart.items[0].price.value
@@ -316,9 +283,9 @@ export default {
                   fulfillment_end_time:
                     itemsInTheCart.items[0].tags.fulfillment_end_time,
                   fulfillment_start_loc:
-                    itemsInTheCart.items[0].tags.fulfillment_start_loc,
+                    '',
                   fulfillment_start_time:
-                    itemsInTheCart.items[0].tags.fulfillment_start_time
+                    ''
                 },
                 fulfillment: {
                   start: orderHistory[0].order.fulfillment.start,
@@ -332,9 +299,10 @@ export default {
 
       localStorage.setItem('orderObject', JSON.stringify(orderObjectPrsed));
 
-      const encodedOrderDetails = btoa(JSON.stringify(orderObjectPrsed));
+      //TODO right now just commenting it. Will remove after concreting the requirement
+      // const encodedOrderDetails = btoa(JSON.stringify(orderObjectPrsed));
 
-      localStorage.setItem('encodedOrderDetails', encodedOrderDetails);
+      // localStorage.setItem('encodedOrderDetails', encodedOrderDetails);
 
       context.root.$router.push({
         path: '/ordersuccess',
@@ -485,11 +453,13 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
 .pay {
   background: white;
   left: -24px;
   position: relative;
 }
+
 .loader-circle {
   width: 100%;
   position: fixed;
