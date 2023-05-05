@@ -29,7 +29,7 @@
                   {{ breakup.title }}
                 </div>
                 <div class="address-text">
-                  ₹
+                  €
                   {{ formatPrice(parseFloat(breakup.price.value).toFixed(2)) }}
                 </div>
               </CardContent>
@@ -39,7 +39,7 @@
             </div>
             <CardContent class="flex-space-bw">
               <div>Subtotal :</div>
-              ₹ {{ formatPrice(valuePerProvider.price.value) }}
+              € {{ formatPrice(valuePerProvider.price.value) }}
             </CardContent>
           </div>
         </div>
@@ -50,6 +50,32 @@
       <div class="sub-heading">
         <div class="p-name">Other</div>
       </div>
+      <Card v-show="isStudent">
+        <CardContent>
+          <div style="display:flex">
+            <SfRadio
+              class="sf-radio--transparent"
+              :name="'Payment'"
+              :value="'Student Culture Wallet'"
+              label="Student Culture Wallet"
+              :disabled="!availablebalance"
+              :selected="paymentMethod"
+              @change="changePaymentMethod"
+            />
+
+            <span style="position: relative; top: 22px;right:36px">
+              <span v-show="availablebalance" class="badge">€273.00</span>
+            </span>
+
+            <span v-show="linkbtn" @click="showcost" class="link-text"
+              >Link</span
+            >
+
+            <span v-show="linkloder" class="loader"></span>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardContent>
           <!-- <div class="address-text color-def">Add Shipping Details</div> -->
@@ -64,6 +90,7 @@
           />
         </CardContent>
       </Card>
+
       <!-- <div class="p-name">Credit & Debit Cards</div>
       <div class="pay1">
         <SfImage
@@ -125,7 +152,13 @@
 import { SfButton, SfRadio, SfIcon, SfImage } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
 
-import { ref, computed, onBeforeMount, watch } from '@vue/composition-api';
+import {
+  ref,
+  computed,
+  onBeforeMount,
+  watch,
+  onMounted
+} from '@vue/composition-api';
 
 import LoadingCircle from '~/components/LoadingCircle';
 import { useCart, useConfirmOrder, cartGetters } from '@vue-storefront/beckn';
@@ -136,6 +169,7 @@ import Card from '~/components/Card.vue';
 import Footer from '~/components/Footer.vue';
 import CardContent from '~/components/CardContent.vue';
 import helpers, { createConfirmOrderRequest } from '../helpers/helpers';
+
 const { toggleCartSidebar } = useUiState();
 export default {
   name: 'Payment',
@@ -160,9 +194,33 @@ export default {
     }
   },
   setup(_, context) {
+    const linkloder = ref(false);
+    const availablebalance = ref(false);
     const paymentMethod = ref('');
     const order = ref({});
+    const linkbtn = ref(true);
     const enableLoader = ref(false);
+    const isStudent = ref(false);
+    const showcost = () => {
+      linkbtn.value = false;
+      linkloder.value = true;
+      setTimeout(() => {
+        linkloder.value = false;
+        availablebalance.value = true;
+      }, 3000);
+    };
+    onMounted(() => {
+      const shippingAddress = JSON.parse(
+        localStorage.getItem('shipping_address')
+      );
+      const num = parseFloat(shippingAddress.age);
+      isBetween18and22(num);
+    });
+    const isBetween18and22 = (num) => {
+      if (num >= 18 && num <= 22) {
+        isStudent.value = true;
+      } else isStudent.value = false;
+    };
     const isTransactionMatching = computed(() => {
       return order.value?.transactionId === context.root.$route.query.id;
     });
@@ -317,7 +375,13 @@ export default {
       proceedToConfirm,
       isTransactionMatching,
       enableLoader,
-      goBack
+      goBack,
+      linkloder,
+      showcost,
+      availablebalance,
+      linkbtn,
+      isBetween18and22,
+      isStudent
     };
   }
 };
@@ -339,6 +403,63 @@ export default {
   left: 0;
   margin: 10px;
 }
+.badge {
+  background: #387f9a;
+  background: #387f9a;
+  border-radius: 10px;
+  padding: 3px 10px 3px 10px;
+  color: #fbfcff;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  position: absolute;
+  /* identical to box height */
+
+  letter-spacing: 0.6px;
+}
+.loader {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: relative;
+  top: 24px;
+  animation: rotate 1s linear infinite;
+}
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 2px solid #387f9a;
+  animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
 
 .details {
   margin: 2px 20px;
@@ -349,7 +470,16 @@ export default {
   font-weight: 600;
   color: #37474f;
 }
-
+.link-text {
+  position: relative;
+  top: 23px;
+  //font-family: 'SF Pro Text';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  color: #387f9a;
+}
 .sub-heading {
   margin: 16px 0px;
   display: flex;

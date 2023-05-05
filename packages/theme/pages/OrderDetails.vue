@@ -43,7 +43,7 @@
           <div class="s-p-name">{{ cartGetters.getItemName(product) }}</div>
           <div class="s-p-weight">x {{ cartGetters.getItemQty(product) }}</div>
           <div class="s-p-price">
-            ₹ {{ cartGetters.getItemPrice(product).regular }}
+            €  {{ cartGetters.getItemPrice(product).regular }}
           </div>
         </div>
       </div> -->
@@ -159,7 +159,7 @@
             :mobile="order.shippingAddress.mobile"
             :building="order.shippingAddress.building"
             :pincode="order.shippingAddress.pincode"
-            :age="order.shippingAddress.age"
+            :age="parseFloat(order.shippingAddress.age)"
           />
         </SfAccordion>
       </Card>
@@ -180,7 +180,7 @@
                 <div class="address-text">{{ breakup.title }}</div>
 
                 <div class="address-text-value">
-                  ₹ {{ formatPrice(breakup.price.value) }}
+                  € {{ formatPrice(breakup.price.value) }}
                 </div>
               </CardContent>
             </div>
@@ -190,7 +190,7 @@
             <CardContent class="flex-space-bw">
               <div class="address-text">Subtotal</div>
               <div class="address-text-value">
-                ₹ {{ formatPrice(value.quote.price.value) }}
+                € {{ formatPrice(value.quote.price.value) }}
               </div>
             </CardContent>
             <CardContent class="flex-space-bw">
@@ -406,7 +406,7 @@
                   </div>
                   <div class="s-p-weight">x {{ product.quantity }}</div>
                   <div class="s-p-price">
-                    ₹
+                    € 
                     {{
                       formatPrice(
                         cartGetters.getItemPrice(product).regular *

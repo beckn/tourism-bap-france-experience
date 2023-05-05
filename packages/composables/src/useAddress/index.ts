@@ -8,6 +8,7 @@ type Address = {
   pincode: number | null;
   valid: boolean;
   address: string;
+  age: number | null;
 };
 
 const useAddress = () => {
@@ -24,7 +25,8 @@ const useAddress = () => {
         state: '',
         pincode: null,
         valid: false,
-        address: ''
+        address: '',
+        age:  null
       };
       return { ...address, ...addressLocal };
       return address;
@@ -38,7 +40,8 @@ const useAddress = () => {
         state: '',
         pincode: null,
         valid: false,
-        address: ''
+        address: '',
+        age:  null
       };
     }
   };
@@ -55,7 +58,9 @@ const useAddress = () => {
         state: '',
         pincode: null,
         valid: false,
-        address: ''
+        address: '',
+        age:  null
+
       };
       return { ...address, ...addressLocal };
     } catch (error) {
@@ -68,7 +73,8 @@ const useAddress = () => {
         state: '',
         pincode: null,
         valid: false,
-        address: ''
+        address: '',
+        age:  null
       };
     }
   };

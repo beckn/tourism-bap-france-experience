@@ -1,6 +1,6 @@
 <template>
   <div id="payment">
-    <div><Location/></div>
+    <div><Location /></div>
     <div class="top-bar">
       <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
         <span class="sf-search-bar__icon">
@@ -23,10 +23,19 @@
             <div @click="goToOrder(order.parentOrderId)" class="order-details">
               <div class="order-icon">
                 <div class="address-bar-icon">
-                  <svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
+                  <svg
+                    width="22"
+                    height="19"
+                    viewBox="0 0 22 19"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
                       d="M21 6.98H16.21L11.83 0.42C11.64 0.14 11.32 0 11 0C10.68 0 10.36 0.14 10.17 0.43L5.79 6.98H1C0.45 6.98 0 7.43 0 7.98C0 8.07 0.01 8.16 0.04 8.25L2.58 17.52C2.81 18.36 3.58 18.98 4.5 18.98H17.5C18.42 18.98 19.19 18.36 19.43 17.52L21.97 8.25L22 7.98C22 7.43 21.55 6.98 21 6.98ZM11 2.78L13.8 6.98H8.2L11 2.78ZM4.51 16.99L17.5 16.98L19.7 8.98H2.31L4.51 16.99Z"
-                      fill="#387F9A" />
+                      fill="#387F9A"
+                    />
                   </svg>
                 </div>
               </div>
@@ -48,10 +57,12 @@
                 </div>
               </div>
               <div class="order-price">
-                ₹
+                €
                 {{
-                  formatPrice(order.orderData[Object.keys(order.orderData)[0]].payment.params
-                    .amount)
+                  formatPrice(
+                    order.orderData[Object.keys(order.orderData)[0]].payment
+                      .params.amount
+                  )
                 }}
               </div>
             </div>
@@ -68,7 +79,11 @@
         </div>
         <div class="sf-button--pure sf-quantity-selector__button sf-button">
           <button class="orderNowButtonForEmptyOrderListPage">
-            <nuxt-link class="orderNowButtonForEmptyOrderListPageChild" :to="localePath('/')">Order Now</nuxt-link>
+            <nuxt-link
+              class="orderNowButtonForEmptyOrderListPageChild"
+              :to="localePath('/')"
+              >Order Now</nuxt-link
+            >
           </button>
         </div>
       </div>
@@ -83,7 +98,7 @@ import { ref, onBeforeMount } from '@vue/composition-api';
 import LoadingCircle from '~/components/LoadingCircle';
 
 import CardContent from '~/components/CardContent.vue';
-import Location from '../components/Location'
+import Location from '../components/Location';
 
 export default {
   name: 'Orders',
@@ -107,8 +122,8 @@ export default {
       context.root.$router.push({
         path: '/orderdetails',
         query: {
-          id: parentOrderId,
-        },
+          id: parentOrderId
+        }
       });
     };
 
@@ -119,7 +134,7 @@ export default {
       enableLoader,
       goToOrder,
       goBack,
-      isOrderreceive,
+      isOrderreceive
     };
   },
   methods: {
@@ -202,7 +217,7 @@ export default {
 .order-price {
   font-size: 18px;
   font-weight: 700;
-  color: #387F9A;
+  color: #387f9a;
 }
 
 .details {
@@ -237,7 +252,7 @@ export default {
 }
 
 .orderNowButtonForEmptyOrderListPage {
-  background: #387F9A;
+  background: #387f9a;
   border-radius: 5px;
   padding: 10px;
   margin-top: 10px;

@@ -1,26 +1,26 @@
 <template>
   <div>
-    <Location/>
-  <div v-if="cartGetters.getTotalItems(cart)">
-    <div class="top-bar header-top">
-      <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
-        <span class="sf-search-bar__icon">
-          <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
-        </span>
+    <Location />
+    <div v-if="cartGetters.getTotalItems(cart)">
+      <div class="top-bar header-top">
+        <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
+          <span class="sf-search-bar__icon">
+            <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
+          </span>
+        </div>
+        <div>Checkout</div>
       </div>
-      <div>Checkout</div>
-    </div>
-    <div v-if="enableLoader" key="loadingCircle" class="loader-circle">
-      <LoadingCircle :enable="enableLoader" />
-    </div>
-    <div class="details header-push">
-      <!-- //TODO removed this because of tourism requirement -->
-      <!-- <div class="sub-heading">
+      <div v-if="enableLoader" key="loadingCircle" class="loader-circle">
+        <LoadingCircle :enable="enableLoader" />
+      </div>
+      <div class="details header-push">
+        <!-- //TODO removed this because of tourism requirement -->
+        <!-- <div class="sub-heading">
         <div class="p-name" v-e2e="'cart-item'">Items</div>
       </div> -->
 
-      <!-- //TODO removed this because of tourism requirement -->
-      <!-- <div
+        <!-- //TODO removed this because of tourism requirement -->
+        <!-- <div
         :key="bppId"
         v-for="(itemsPerBpp,
         bppId,
@@ -82,190 +82,191 @@
         </div>
       </div> -->
 
-      <div class="sub-heading">
-        <div class="p-name">Traveller Details</div>
-        <SfButton
-          v-if="isShippingAddressFilled"
-          class="sf-button--pure"
-          @click="toggleShippingModal"
-        >
-          <div class="color-def">Change</div>
-        </SfButton>
-      </div>
-      <AddressCard
-        v-if="isShippingAddressFilled"
-        :name="shippingAddress.name"
-        :address="shippingAddress.address"
-        :mobile="shippingAddress.mobile"
-        :pincode="shippingAddress.pincode"
-        :building="shippingAddress.building"
-        :age="shippingAddress.age"
-      />
-      <Card v-if="!isShippingAddressFilled">
-        <CardContent>
-          <div class="address-bar-icon">
-            <svg
-              width="16"
-              height="21"
-              viewBox="0 0 16 21"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 1C11.8598 1 15 4.1402 15 8C15 13.2126 9.80472 18.1458 7.99934 19.7024C6.19334 18.1482 1 13.2239 1 8C1 4.1402 4.14018 1 8 1ZM8 0C3.58176 0 0 3.5817 0 8C0 14.8571 8 21 8 21C8 21 16 14.8571 16 8C16 3.5817 12.4182 0 8 0ZM7 12H9V9H12V7H9V4H7V7H4V9H7V12Z"
-                fill="#387F9A"
-              />
-            </svg>
-          </div>
-          <div
+        <div class="sub-heading">
+          <div class="p-name">Traveller Details</div>
+          <SfButton
+            v-if="isShippingAddressFilled"
+            class="sf-button--pure"
             @click="toggleShippingModal"
-            v-e2e="'add-shipping-details'"
-            class="address-text color-def"
           >
-            Add Traveller Details
-          </div>
-        </CardContent>
-      </Card>
-
-      <div v-if="isShippingAddressFilled" class="sub-heading">
-        <div class="p-name">Billing</div>
-        <SfButton
-          v-if="isBillingAddressFilled || !shippingAsBilling"
-          class="sf-button--pure"
-          @click="toggleBillingModal"
-        >
-          <div class="color-def">Change</div>
-        </SfButton>
-      </div>
-      <Card v-if="isShippingAddressFilled" class="card-checkbox">
-        <CardContent>
-          <div class="address-bar-icon">
-            <SfCheckbox
-              @change="changeShippingAsBilling"
-              :selected="shippingAsBilling"
-              name="shipping"
-            />
-          </div>
-          <div class="address-text">Same as Traveller Details</div>
-        </CardContent>
-      </Card>
-
-      <AddressCard
-        v-if="isBillingAddressFilled && !shippingAsBilling"
-        :name="billingAddress.name"
-        :address="billingAddress.address"
-        :mobile="billingAddress.mobile"
-        :pincode="billingAddress.pincode"
-        :building="billingAddress.building"
-        :age="billingAddress.age"
-      />
-
-      <div v-show="isValidCart(cart)" class="sub-heading">
-        <div class="p-name">Payment</div>
-      </div>
-
-      <div v-show="isValidCart(cart)">
-        <Card>
-          <!-- <SfAccordion> -->
-          <!-- <SfAccordionItem :header="'Subtotal'"> -->
-          <div>
-            {{ log('value in he cart', cart) }}
+            <div class="color-def">Change</div>
+          </SfButton>
+        </div>
+        <AddressCard
+          v-if="isShippingAddressFilled"
+          :name="shippingAddress.name"
+          :address="shippingAddress.address"
+          :mobile="shippingAddress.mobile"
+          :pincode="shippingAddress.pincode"
+          :building="shippingAddress.building"
+          :age="parseFloat(shippingAddress.age)"
+        />
+        <Card v-if="!isShippingAddressFilled">
+          <CardContent>
+            <div class="address-bar-icon">
+              <svg
+                width="16"
+                height="21"
+                viewBox="0 0 16 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 1C11.8598 1 15 4.1402 15 8C15 13.2126 9.80472 18.1458 7.99934 19.7024C6.19334 18.1482 1 13.2239 1 8C1 4.1402 4.14018 1 8 1ZM8 0C3.58176 0 0 3.5817 0 8C0 14.8571 8 21 8 21C8 21 16 14.8571 16 8C16 3.5817 12.4182 0 8 0ZM7 12H9V9H12V7H9V4H7V7H4V9H7V12Z"
+                  fill="#387F9A"
+                />
+              </svg>
+            </div>
             <div
-              :key="bppId"
-              v-for="(value, bppId) in cartGetters.getQuoteItem(cart)"
+              @click="toggleShippingModal"
+              v-e2e="'add-shipping-details'"
+              class="address-text color-def"
             >
+              Add Traveller Details
+            </div>
+          </CardContent>
+        </Card>
+
+        <div v-if="isShippingAddressFilled" class="sub-heading">
+          <div class="p-name">Billing</div>
+          <SfButton
+            v-if="isBillingAddressFilled || !shippingAsBilling"
+            class="sf-button--pure"
+            @click="toggleBillingModal"
+          >
+            <div class="color-def">Change</div>
+          </SfButton>
+        </div>
+        <Card v-if="isShippingAddressFilled" class="card-checkbox">
+          <CardContent>
+            <div class="address-bar-icon">
+              <SfCheckbox
+                @change="changeShippingAsBilling"
+                :selected="shippingAsBilling"
+                name="shipping"
+              />
+            </div>
+            <div class="address-text">Same as Traveller Details</div>
+          </CardContent>
+        </Card>
+
+        <AddressCard
+          v-if="isBillingAddressFilled && !shippingAsBilling"
+          :name="billingAddress.name"
+          :address="billingAddress.address"
+          :mobile="billingAddress.mobile"
+          :pincode="billingAddress.pincode"
+          :building="billingAddress.building"
+          :age="parseFloat(billingAddress.age)"
+        />
+
+        <div v-show="isValidCart(cart)" class="sub-heading">
+          <div class="p-name">Payment</div>
+        </div>
+
+        <div v-show="isValidCart(cart)">
+          <Card>
+            <!-- <SfAccordion> -->
+            <!-- <SfAccordionItem :header="'Subtotal'"> -->
+            <div>
+              {{ log('value in he cart', cart) }}
               <div
-                :key="providerId"
-                v-for="(valuePerProvider, providerId) in value"
+                :key="bppId"
+                v-for="(value, bppId) in cartGetters.getQuoteItem(cart)"
               >
                 <div
-                  :key="id"
-                  v-for="(breakup, id) in valuePerProvider.breakup"
+                  :key="providerId"
+                  v-for="(valuePerProvider, providerId) in value"
                 >
+                  <div
+                    :key="id"
+                    v-for="(breakup, id) in valuePerProvider.breakup"
+                  >
+                    <CardContent class="flex-space-bw">
+                      <div>{{ breakup.title }}</div>
+                      <div>€ {{ formatPrice(breakup.price.value) }}</div>
+                    </CardContent>
+                  </div>
+                  <hr />
                   <CardContent class="flex-space-bw">
-                    <div>{{ breakup.title }}</div>
-                    <div>₹ {{ formatPrice(breakup.price.value) }}</div>
+                    <div>Subtotal :</div>
+                    <div>€ {{ formatPrice(valuePerProvider.price.value) }}</div>
                   </CardContent>
                 </div>
-                <hr />
-                <CardContent class="flex-space-bw">
-                  <div>Subtotal :</div>
-                  <div>₹ {{ formatPrice(valuePerProvider.price.value) }}</div>
-                </CardContent>
               </div>
             </div>
-          </div>
-          <!-- </SfAccordionItem> -->
-          <!-- </SfAccordion> -->
-        </Card>
-      </div>
-
-      <div class="order-policy">
-        <div class="sub-heading">
-          <div class="p-name">Terms & Condition</div>
+            <!-- </SfAccordionItem> -->
+            <!-- </SfAccordion> -->
+          </Card>
         </div>
-        <Card>
-          <!-- To redo it after order policy content -->
-          <!-- <CardContent> -->
 
-          <p class="policy-text">
-            Cancellation terms:<br />
-            1. Orders cannot be cancelled once the items are shipped.<br />
-            2. Cancellation fee of ₹ 10 will be applied for orders cancelled by
-            the buyer.<br /><br />
-            Returns and Refunds:<br />
-            1. Items can be returned within 7 days of delivery with full refund.
-          </p>
-        </Card>
+        <div class="order-policy">
+          <div class="sub-heading">
+            <div class="p-name">Terms & Condition</div>
+          </div>
+          <Card>
+            <!-- To redo it after order policy content -->
+            <!-- <CardContent> -->
+
+            <p class="policy-text">
+              Cancellation terms:<br />
+              1. Orders cannot be cancelled once the items are shipped.<br />
+              2. Cancellation fee of €  10 will be applied for orders cancelled
+              by the buyer.<br /><br />
+              Returns and Refunds:<br />
+              1. Items can be returned within 7 days of delivery with full
+              refund.
+            </p>
+          </Card>
+        </div>
       </div>
+      <Footer
+        class="footer-fixed"
+        @buttonClick="paymentProceed"
+        :totalPrice="cartGetters.getTotals(cart).total"
+        :totalItem="cartGetters.getTotalItems(cart)"
+        :buttonText="'Proceed to Pay'"
+        :buttonEnable="proceedToPay"
+      >
+        <template v-slot:buttonIcon>
+          <svg
+            width="25"
+            height="19"
+            viewBox="0 0 25 19"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.0166 7.10181H23.0166M3.0166 1.10181H21.0166C22.1212 1.10181 23.0166 1.99724 23.0166 3.10181V15.1018C23.0166 16.2064 22.1212 17.1018 21.0166 17.1018H3.0166C1.91203 17.1018 1.0166 16.2064 1.0166 15.1018V3.10181C1.0166 1.99724 1.91203 1.10181 3.0166 1.10181Z"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </template>
+      </Footer>
+      <ModalSlide :visible="shippingAddressModal" @close="toggleShippingModal">
+        <AddressInputs
+          :buttonText="'Save Traveller Details'"
+          :headingText="'Traveller Details'"
+          :addressDetails="shippingAddress"
+          @getAddress="toggleShippingModal"
+          @initCall="initOrder"
+          :buttonEnable="isShippingButtonEnabled"
+        />
+      </ModalSlide>
+      <ModalSlide :visible="billingAddressModal" @close="toggleBillingModal">
+        <AddressInputs
+          :buttonText="'Save Billing Details'"
+          :headingText="'Billing Details'"
+          :addressDetails="billingAddress"
+          @getAddress="toggleBillingModal"
+          @initCall="initOrder"
+          :buttonEnable="isBillingButtonEnabled"
+        />
+      </ModalSlide>
     </div>
-    <Footer
-      class="footer-fixed"
-      @buttonClick="paymentProceed"
-      :totalPrice="cartGetters.getTotals(cart).total"
-      :totalItem="cartGetters.getTotalItems(cart)"
-      :buttonText="'Proceed to Pay'"
-      :buttonEnable="proceedToPay"
-    >
-      <template v-slot:buttonIcon>
-        <svg
-          width="25"
-          height="19"
-          viewBox="0 0 25 19"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1.0166 7.10181H23.0166M3.0166 1.10181H21.0166C22.1212 1.10181 23.0166 1.99724 23.0166 3.10181V15.1018C23.0166 16.2064 22.1212 17.1018 21.0166 17.1018H3.0166C1.91203 17.1018 1.0166 16.2064 1.0166 15.1018V3.10181C1.0166 1.99724 1.91203 1.10181 3.0166 1.10181Z"
-            stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </template>
-    </Footer>
-    <ModalSlide :visible="shippingAddressModal" @close="toggleShippingModal">
-      <AddressInputs
-        :buttonText="'Save Traveller Details'"
-        :headingText="'Traveller Details'"
-        :addressDetails="shippingAddress"
-        @getAddress="toggleShippingModal"
-        @initCall="initOrder"
-        :buttonEnable="isShippingButtonEnabled"
-      />
-    </ModalSlide>
-    <ModalSlide :visible="billingAddressModal" @close="toggleBillingModal">
-      <AddressInputs
-        :buttonText="'Save Billing Details'"
-        :headingText="'Billing Details'"
-        :addressDetails="billingAddress"
-        @getAddress="toggleBillingModal"
-        @initCall="initOrder"
-        :buttonEnable="isBillingButtonEnabled"
-      />
-    </ModalSlide>
-  </div>
   </div>
 </template>
 <script>
@@ -280,7 +281,7 @@ import {
   SfInput,
   SfIcon
 } from '@storefront-ui/vue';
-import  Location from '../components/Location'
+import Location from '../components/Location';
 import ModalSlide from '~/components/ModalSlide.vue';
 import AddressInputs from '~/components/AddressInputs.vue';
 import LoadingCircle from '~/components/LoadingCircle';

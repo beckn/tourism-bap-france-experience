@@ -51,7 +51,7 @@
       <button className="amount-button">
         <span>Total</span>
         <br/>
-        <span style={{color:"#387F9A"}}>₹80,000</span>
+        <span style={{color:"#387F9A"}}>€ 80,000</span>
       </button>
       <button className="book-now-button">Book Now</button>
     </div>
