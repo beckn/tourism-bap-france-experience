@@ -262,13 +262,42 @@ export const getMoreItemsOfOrderFromcartItems = (order, selectMoreItemsId) => {
   return order.cart.items;
 };
 
+const toBinary = (objectString) => {
+  const codeUnits = Uint16Array.from(
+    { length: objectString.length },
+    (element, index) => objectString.charCodeAt(index)
+  );
+  const charCodes = new Uint8Array(codeUnits.buffer);
+
+  let result = '';
+  charCodes.forEach((char) => {
+    result += String.fromCharCode(char);
+  });
+  return result;
+};
+
+const fromBinary = (binary) => {
+  const bytes = Uint8Array.from({ length: binary.length }, (element, index) =>
+    binary.charCodeAt(index)
+  );
+  const charCodes = new Uint16Array(bytes.buffer);
+
+  let result = '';
+  charCodes.forEach((char) => {
+    result += String.fromCharCode(char);
+  });
+  return result;
+};
+
 const helpers = {
   calculateDays,
   getMessageIdsFromResponse,
   getOrderPlacementTimeline,
   shouldStopPooling,
   getMoreItemsOfOrderFromcartItems,
-  generateUniqueOrderId
+  generateUniqueOrderId,
+  toBinary,
+  fromBinary
 };
 
 export default helpers;

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div><Location /></div>
+    <div>
+      <Location />
+    </div>
     <div class="top-bar">
       <div class="header-push" style="    padding-left: 5%;">
         Booking Details
@@ -49,10 +51,8 @@
       </div> -->
       <Card>
         <SfAccordion>
-          <h5
-            style="color:#387f9a;font-size: 17px;
-                        font-weight: 500;"
-          >
+          <h5 style="color:#387f9a;font-size: 17px;
+                        font-weight: 500;">
             My Trip
           </h5>
           <CardContent class="flex-space-bw">
@@ -66,11 +66,7 @@
           </div>
           {{ log('order', order.value) }}
 
-          <div
-            :key="orderId"
-            v-for="(order, orderId, index) in order.orderData"
-            class="shipment-wrapper"
-          >
+          <div :key="orderId" v-for="(order, orderId, index) in order.orderData" class="shipment-wrapper">
             <!-- <CardContent class="flex-space-bw">
                 <div class="address-text">
                   <span>Order Id {{ index + 1 }}</span>
@@ -89,10 +85,7 @@
                 <span>Id - {{ parentOrderIdOfTheCurentOrder }}</span>
               </div>
             </CardContent>
-            <CardContent
-              v-if="orderStatusData && orderStatusData[index]"
-              class="flex-space-bw"
-            >
+            <CardContent v-if="orderStatusData && orderStatusData[index]" class="flex-space-bw">
               <div class="address-text"><span>Status</span></div>
               <div class="status-text">
                 <span>
@@ -107,16 +100,11 @@
             </CardContent>
             <CardContent class="flex-space-bw">
               <div v-if="order.items.length > 1">
-                <div
-                  @click="
-                    openItemsModal = true;
-                    selectMoreItemsId = orderId;
-                  "
-                  class="more-items-button"
-                >
-                  <span class="more-items-text"
-                    >{{ order.items.length - 1 }} more items</span
-                  >
+                <div @click="
+                  openItemsModal = true;
+                selectMoreItemsId = orderId;
+                " class="more-items-button">
+                  <span class="more-items-text">{{ order.items.length - 1 }} more items</span>
                 </div>
               </div>
             </CardContent>
@@ -147,20 +135,13 @@
 
       <Card>
         <SfAccordion>
-          <h5
-            style="color:#387f9a;font-size: 17px;
-                        font-weight: 500;"
-          >
+          <h5 style="color:#387f9a;font-size: 17px;
+                        font-weight: 500;">
             Traveller Details
           </h5>
-          <AddressCard
-            :name="order.shippingAddress.name"
-            :address="order.shippingAddress.address"
-            :mobile="order.shippingAddress.mobile"
-            :building="order.shippingAddress.building"
-            :pincode="order.shippingAddress.pincode"
-            :age="parseFloat(order.shippingAddress.age)"
-          />
+          <AddressCard :name="order.shippingAddress.name" :address="order.shippingAddress.address"
+            :mobile="order.shippingAddress.mobile" :building="order.shippingAddress.building"
+            :pincode="order.shippingAddress.pincode" :age="parseFloat(order.shippingAddress.age)" />
         </SfAccordion>
       </Card>
 
@@ -168,10 +149,8 @@
 
       <Card>
         <SfAccordion>
-          <h5
-            style="color:#387f9a;font-size: 17px;
-                        font-weight: 500;"
-          >
+          <h5 style="color:#387f9a;font-size: 17px;
+                        font-weight: 500;">
             Payment
           </h5>
           <div :key="orderId" v-for="(value, orderId) in order.orderData">
@@ -198,7 +177,7 @@
               <div class="address-text-value">
                 {{
                   value.payment.status.charAt(0).toUpperCase() +
-                    value.payment.status.slice(1).toLowerCase()
+                  value.payment.status.slice(1).toLowerCase()
                 }}
               </div>
             </CardContent>
@@ -213,21 +192,14 @@
       <div class="sub-heading"></div>
       <Card>
         <SfAccordion>
-          <h5
-            style="color:#387f9a;font-size: 17px;
-                        font-weight: 500;"
-          >
+          <h5 style="color:#387f9a;font-size: 17px;
+                        font-weight: 500;">
             Open in Wallet
           </h5>
           <CardContent class="flex-space-bw">
             <div class="open-wallet-QR-container">
-              <qrcode-vue
-                :value="
-                  `https://experience-guide.becknprotocol.io/wallet?${encodedOrderDetails}`
-                "
-                size="200"
-                level="L"
-              />
+              <qrcode-vue :value="`https://experience-guide.becknprotocol.io/wallet?${encodedOrderDetails}`
+                " size="200" level="L" />
             </div>
           </CardContent>
         </SfAccordion>
@@ -253,20 +225,14 @@
 
       <div class="sub-heading"></div>
 
-      <button
-        class="sf-button color-primary support-btns card-checkbox"
-        @click="goHome"
-      >
+      <button class="sf-button color-primary support-btns card-checkbox" @click="goHome">
         <div class="f-btn-text">Home</div>
       </button>
 
-      <ModalSlide
-        :visible="openSupportModal"
-        @close="
-          openSupportModal = false;
-          selectedSupportId = null;
-        "
-      >
+      <ModalSlide :visible="openSupportModal" @close="
+        openSupportModal = false;
+      selectedSupportId = null;
+      ">
         <div class="modal-heading">Contact Support</div>
         <div>
           <hr class="sf-divider" />
@@ -282,32 +248,14 @@
                 )
               }}
             </div>
-            <SfButton
-              class="support-btns"
-              v-if="supportData[selectedSupportId].phone"
-              @click="openWindow('tel:' + supportData[selectedSupportId].phone)"
-              aria-label="Close modal"
-              type="button"
-            >
-              Call us</SfButton
-            >
-            <SfButton
-              class="support-btns"
-              v-if="supportData[selectedSupportId].email"
-              @click="
-                openWindow('mailto:' + supportData[selectedSupportId].email)
-              "
-              aria-label="Close modal"
-              type="button"
-              >Email us</SfButton
-            >
-            <SfButton
-              class="support-btns"
-              v-if="supportData[selectedSupportId].uri"
-              @click="openWindow(supportData[selectedSupportId].uri)"
-              aria-label="Close modal"
-              type="button"
-              >Chat with us
+            <SfButton class="support-btns" v-if="supportData[selectedSupportId].phone"
+              @click="openWindow('tel:' + supportData[selectedSupportId].phone)" aria-label="Close modal" type="button">
+              Call us</SfButton>
+            <SfButton class="support-btns" v-if="supportData[selectedSupportId].email" @click="
+              openWindow('mailto:' + supportData[selectedSupportId].email)
+              " aria-label="Close modal" type="button">Email us</SfButton>
+            <SfButton class="support-btns" v-if="supportData[selectedSupportId].uri"
+              @click="openWindow(supportData[selectedSupportId].uri)" aria-label="Close modal" type="button">Chat with us
             </SfButton>
           </div>
           <div v-else class="support-text">
@@ -316,13 +264,10 @@
         </div>
       </ModalSlide>
 
-      <ModalSlide
-        :visible="openTrackModal"
-        @close="
-          openTrackModal = false;
-          selectedTrackingId = null;
-        "
-      >
+      <ModalSlide :visible="openTrackModal" @close="
+        openTrackModal = false;
+      selectedTrackingId = null;
+      ">
         <div class="modal-heading">Track</div>
         <div>
           <hr class="sf-divider" />
@@ -337,13 +282,8 @@
             }} -->
           </div>
           <div v-else>
-            <SfButton
-              class="support-btns"
-              aria-label="Close modal"
-              type="button"
-              @click="openWindow(trackingData[selectedTrackingId])"
-              >open Link</SfButton
-            >
+            <SfButton class="support-btns" aria-label="Close modal" type="button"
+              @click="openWindow(trackingData[selectedTrackingId])">open Link</SfButton>
           </div>
           <!-- <SfButton class="support-btns" aria-label="Close modal" type="button"
             >Call us</SfButton
@@ -354,13 +294,10 @@
         </div>
       </ModalSlide>
 
-      <ModalSlide
-        :visible="openItemsModal"
-        @close="
-          openItemsModal = false;
-          selectMoreItemsId = null;
-        "
-      >
+      <ModalSlide :visible="openItemsModal" @close="
+        openItemsModal = false;
+      selectMoreItemsId = null;
+      ">
         <div class="modal-heading">Ordered Items</div>
         <div>
           <hr class="sf-divider" />
@@ -376,21 +313,12 @@
           </CardContent>
           <div v-if="selectMoreItemsId !== null">
             <CardContent class="more-items-flex">
-              <div
-                v-for="(product, index) in getMoreItems(
-                  order,
-                  selectMoreItemsId
-                )"
-                :key="index"
-                class="item-wrapper"
-              >
+              <div v-for="(product, index) in getMoreItems(
+                    order,
+                    selectMoreItemsId
+                  )" :key="index" class="item-wrapper">
                 <div class="s-p-image">
-                  <SfImage
-                    :src="cartGetters.getItemImage(product)"
-                    alt="product img"
-                    :width="85"
-                    :height="90"
-                  />
+                  <SfImage :src="cartGetters.getItemImage(product)" alt="product img" :width="85" :height="90" />
                 </div>
                 <div class="s-p-details">
                   <div class="s-p-name">
@@ -406,11 +334,11 @@
                   </div>
                   <div class="s-p-weight">x {{ product.quantity }}</div>
                   <div class="s-p-price">
-                    € 
+                    €
                     {{
                       formatPrice(
                         cartGetters.getItemPrice(product).regular *
-                          product.quantity
+                        product.quantity
                       )
                     }}
                   </div>
@@ -418,10 +346,7 @@
               </div>
             </CardContent>
           </div>
-          <button
-            class="sf-button color-primary support-btns"
-            @click="openItemsModal = false"
-          >
+          <button class="sf-button color-primary support-btns" @click="openItemsModal = false">
             <div class="f-btn-text">Okay</div>
           </button>
         </div>
@@ -438,48 +363,21 @@
             to Import this order another app
           </div>
           <br />
-          <div
-            style="display: flex; align-items: center; justify-content: center;"
-          >
+          <div style="display: flex; align-items: center; justify-content: center;">
             <!-- <SfImage alt="copypast" class="e" src="/icons/QR.png" /> -->
-            <qrcode-vue
-              :value="
-                `https://retail-app.becknprotocol.io?${encodedOrderDetails}`
-              "
-              size="200"
-              level="L"
-            />
+            <qrcode-vue :value="`https://experience-guide-staging.becknprotocol.io/SelectionPage??external_url=${orderObjectFetchUrl}`
+              " size="200" level="L" />
           </div>
           <br />
-          <div
-            style="display: flex; align-items: center; justify-content: space-evenly;"
-          >
+          <div style="display: flex; align-items: center; justify-content: space-evenly;">
             <div>
-              <SfImage
-                width="60px"
-                height="60px"
-                alt="copypast"
-                class="e"
-                src="/icons/ONDC_logo.png"
-              />
+              <SfImage width="60px" height="60px" alt="copypast" class="e" src="/icons/ONDC_logo.png" />
             </div>
             <div>
-              <SfImage
-                width="43px"
-                height="61px"
-                alt="copypast"
-                class="e"
-                src="/icons/openKochi.png"
-              />
+              <SfImage width="43px" height="61px" alt="copypast" class="e" src="/icons/openKochi.png" />
             </div>
             <div>
-              <SfImage
-                width="63px"
-                height="19px"
-                alt="copypast"
-                class="e"
-                src="/icons/beckn_main_scanner.png"
-              />
+              <SfImage width="63px" height="19px" alt="copypast" class="e" src="/icons/beckn_main_scanner.png" />
             </div>
           </div>
         </div>
@@ -577,6 +475,7 @@ export default {
     const toggleQR = () => {
       openQR.value = !openQR.value;
     };
+    const orderObjectFetchUrl = ref('');
 
     const exportingOrderObject = JSON.parse(
       localStorage.getItem('orderObject')
@@ -638,6 +537,7 @@ export default {
       statusResult.value.forEach((currentStatusData, index) => {
         if (currentStatusData.message?.order) {
           orderStatusData[index] = currentStatusData.message.order;
+          orderObjectFetchUrl.value = currentStatusData.order_url;
         }
       });
 
@@ -835,7 +735,8 @@ export default {
       encodedOrderDetails,
       orderObjectForQR,
       productName,
-      parentOrderIdOfTheCurentOrder
+      parentOrderIdOfTheCurentOrder,
+      orderObjectFetchUrl
     };
   },
   methods: {
