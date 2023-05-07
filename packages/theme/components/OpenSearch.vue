@@ -125,8 +125,10 @@ export default {
 
   created() {
     if (process.client) {
-      this.service = new window.google.maps.places.AutocompleteService();
+      if(window) {
+        this.service = new window.google.maps.places.AutocompleteService();
       this.geocodeService = new window.google.maps.Geocoder();
+      }   
       // if (navigator.geolocation) {
       //   navigator.geolocation.getCurrentPosition(position => {
       //     const { latitude, longitude } = position.coords;

@@ -61,7 +61,7 @@
               @change="changePaymentMethod"
             />
 
-            <span style="position: relative; top: 22px;right:36px">
+            <span style="position: relative; top: 16px;right:21px">
               <span v-show="availablebalance" class="badge">€273.00</span>
             </span>
 
@@ -392,7 +392,7 @@ export default {
   height: 18px;
   border-radius: 50%;
   position: relative;
-  top: 24px;
+  top: 18px;
   animation: rotate 1s linear infinite;
 }
 .loader::before {
@@ -440,7 +440,7 @@ export default {
 }
 .link-text {
   position: relative;
-  top: 23px;
+  top: 16px;
   //font-family: 'SF Pro Text';
   font-style: normal;
   font-weight: 600;
