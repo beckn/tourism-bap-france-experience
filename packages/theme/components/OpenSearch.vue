@@ -115,7 +115,7 @@ export default {
 
   data() {
     return {
-      searchAddress: 'Paris',
+      searchAddress: 'Paris, France',
       searchResults: [],
       service: null,
       showDropdown: false,
@@ -198,6 +198,7 @@ export default {
   mounted() {
     // Add a click event listener to the document object
     document.addEventListener('click', this.handleClickOutside);
+    localStorage.setItem('selectedLocation', 'Paris, France')
   },
 
   beforeUnmount() {
@@ -209,10 +210,7 @@ export default {
     const errorMsg = ref(false);
 
     const openSearch = () => {
-      console.log(
-        'context in the file',
-        localStorage.getItem('selectedLocation')
-      );
+     
       if (localStorage.getItem('selectedLocation')) {
         if (errorMsg.value) errorMsg.value = false;
         context.root.$router.push({

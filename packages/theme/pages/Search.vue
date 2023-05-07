@@ -216,7 +216,7 @@ export default {
       search({
         term: paramValue,
         locationIs: '12.9063433,77.5856825',
-        category: 'tourism'
+        category: 'TourismEnglish'
         // eslint-disable-next-line no-unused-vars
       }).then((_) => {
         localStorage.setItem(
