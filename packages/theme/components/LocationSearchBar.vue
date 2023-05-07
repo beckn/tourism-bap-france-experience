@@ -2,8 +2,8 @@
   <div>
     <slot name="locationInput">
       <div class="position-relative">
-        <input ref="locationAutocomplete" v-model="location" type="text" placeholder="Enter Location"
-          aria-label="Select Location" class="
+        <input ref="locationAutocomplete" v-model="location" type="text" placeholder="Entrer l'emplacement"
+          aria-label="Sélectionnez l'emplacement" class="
               sf-header__search
               be-search-location
               sf-search-bar

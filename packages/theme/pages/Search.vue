@@ -5,7 +5,7 @@
     <div class="search-page">
       <div class="search-bar side-padding">
         <SfSearchBar
-          placeholder="Search for items"
+          placeholder="Rechercher des articles"
           aria-label="Search"
           :icon="null"
           :value="searchKey"
@@ -36,7 +36,6 @@
           </template>
         </SfSearchBar>
       </div>
-
       <div class="details">
         <transition-group name="sf-fade" mode="out-in" v-if="!enableLoader">
           <div
@@ -47,14 +46,14 @@
             <div>
               <div class="product-list-header">
                 <span class="side-padding travel-package-text"
-                  >Travel Packages</span
+                  >Packages de voyage</span
                 >
               </div>
               <div class="side-padding result-num">
                 <div>
                   <span
                     ><span v-e2e="'total-result'">{{ totalResults }}</span>
-                    results found</span
+                    résultats trouvés</span
                   >
                 </div>
               </div>
@@ -105,13 +104,13 @@
               loading="lazy"
             />
             <p>
-              <b>{{ $t('Your search did not yield ') }}</b>
+              <b>{{ $t('Votre recherche n\'a donné ') }}</b>
             </p>
             <p>
-              <b>{{ $t('any results ') }}</b>
+              <b>{{ $t('aucun résultat ') }}</b>
             </p>
-            <p>{{ $t('Please try searching again using ') }}</p>
-            <p>{{ $t('different keyword') }}</p>
+            <p>{{ $t('Veuillez réessayer avec un') }}</p>
+            <p>{{ $t('autre mot-clé ') }}</p>
           </div>
         </transition-group>
 

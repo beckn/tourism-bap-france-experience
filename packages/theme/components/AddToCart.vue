@@ -3,7 +3,7 @@
     <div class="s-p-addcart">
       <button v-if="_value == 0" class="color-primary sf-button add-btn" :disabled="false" link=""
         @click="changeItemNumber('add')">
-        <SfIcon icon="add_to_cart" size="xs" color="white" :coverage="1" /> Book Now
+        <SfIcon icon="add_to_cart" size="xs" color="white" :coverage="1" /> Reserve maintenant
       </button>
       <div v-else class="item-counter">
         <button class="sf-button--pure sf-quantity-selector__button sf-button" :disabled="false" data-testid="+"

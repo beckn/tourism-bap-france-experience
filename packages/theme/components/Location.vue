@@ -175,7 +175,7 @@ export default {
       return this.location !== '';
     },
     locationText() {
-      return this.location !== '' ? 'Your location' : 'Set location';
+      return this.location !== '' ? 'Votre emplacement' : 'Définir l'emplacement';
     },
     isAuthenticatedUser() {
       return this.currentUser !== null;

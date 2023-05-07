@@ -97,7 +97,7 @@
       </Footer>
     </div>
     <ModalSlide :visible="openModal" @close="toggleModal">
-      <div class="modal-heading">Cart Quantity</div>
+      <div class="modal-heading">Quantité de chariot</div>
       <div><hr class="sf-divider" /></div>
       <div class="modal-body">
         <div class="inputs-container">
@@ -107,7 +107,7 @@
             :valid="validInput"
             label="Enter Quantity"
             name="locality"
-            errorMessage="Maximum limit on cart quantity is 10."
+            errorMessage="La limite maximale de la quantité de chariot est de 10."
             @input="onChangeInput"
           />
         </div>
@@ -119,7 +119,7 @@
           @click="addQuantity"
           :disabled="!validInput"
           style="width: 100%"
-          >Add quantity</SfButton
+          >Ajouter la quantité</SfButton
         >
       </div>
     </ModalSlide>

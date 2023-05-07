@@ -8,18 +8,18 @@
           <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
         </span>
       </div>
-      <div>Cancel Orders</div>
+      <div>Annuler les commandes</div>
     </div>
     <div class="details">
       <div class="detail-head">
-        <div class="h-main">You have chosen to cancel the order</div>
+        <div class="h-main">Vous avez choisi d'annuler la commande</div>
         <div class="h-sub">
-          Please accept the provider’s order cancellation policy
+          Veuillez accepter la politique d'annulation de l'ordre du fournisseur
         </div>
       </div>
       <div><hr class="sf-divider" /></div>
       <div class="detail-body">
-        <div class="b-head">Cancellation policy</div>
+        <div class="b-head">Politique d'annulation</div>
         <p>
           FIn publishing and graphic design, Lorem ipsum is a placeholder text
           commonly used to demonstrate the visual form of a document or a
@@ -54,16 +54,16 @@
     </div>
     <div class="c-footer">
       <button class="sf-button color-primary" @click="openCancelModal = true">
-        <div class="f-btn-text">Accept Cancellation Policy</div>
+        <div class="f-btn-text">Accepter la politique d'annulation</div>
       </button>
     </div>
     <ModalSlide :visible="openCancelModal" @close="closeModal">
-      <div class="modal-heading">Cancel Order Reason</div>
+      <div class="modal-heading">Annuler la raison de la commande</div>
       <div><hr class="sf-divider" /></div>
       <div class="modal-body">
         <div class="option-container">
           <div class="option-head">
-            Please select the reason for cancellation
+            Veuillez sélectionner la raison de l'annulation
           </div>
           <SfRadio
             v-for="value in cancelReasonValues"
@@ -77,7 +77,7 @@
           />
         </div>
         <button class="sf-button color-primary " :class="{'is-disabled--button': !selectedReason}" @click="onConfirm" :disabled="!selectedReason">
-          <div class="f-btn-text">Confirm Cancellation Request</div>
+          <div class="f-btn-text">Confirmer la demande d'annulation</div>
         </button>
       </div>
     </ModalSlide>

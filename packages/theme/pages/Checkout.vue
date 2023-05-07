@@ -81,9 +81,8 @@
           </div>
         </div>
       </div> -->
-
         <div class="sub-heading">
-          <div class="p-name">Traveller Details</div>
+          <div class="p-name">Détails des voyageurs</div>
           <SfButton
             v-if="isShippingAddressFilled"
             class="sf-button--pure"
@@ -122,7 +121,7 @@
               v-e2e="'add-shipping-details'"
               class="address-text color-def"
             >
-              Add Traveller Details
+              Ajouter les détails du voyageur
             </div>
           </CardContent>
         </Card>
@@ -146,7 +145,7 @@
                 name="shipping"
               />
             </div>
-            <div class="address-text">Same as Traveller Details</div>
+            <div class="address-text">Identique aux détails du voyageur</div>
           </CardContent>
         </Card>
 
@@ -199,10 +198,9 @@
             <!-- </SfAccordion> -->
           </Card>
         </div>
-
         <div class="order-policy">
           <div class="sub-heading">
-            <div class="p-name">Terms & Condition</div>
+            <div class="p-name">Termes et conditions</div>
           </div>
           <Card>
             <!-- To redo it after order policy content -->
@@ -210,12 +208,10 @@
 
             <p class="policy-text">
               Cancellation terms:<br />
-              1. Orders cannot be cancelled once the items are shipped.<br />
-              2. Cancellation fee of €  10 will be applied for orders cancelled
-              by the buyer.<br /><br />
-              Returns and Refunds:<br />
-              1. Items can be returned within 7 days of delivery with full
-              refund.
+              1. Les commandes ne peuvent pas être annulées une fois les articles expédiés.<br />
+              2. Des frais d'annulation de € 2 seront appliqués pour les commandes annulées par l'acheteur.<br /><br />
+              Retours et remboursements:<br />
+              1. Les articles peuvent être retournés dans les 7 jours suivant la livraison avec un remboursement complet.
             </p>
           </Card>
         </div>
@@ -225,7 +221,7 @@
         @buttonClick="paymentProceed"
         :totalPrice="cartGetters.getTotals(cart).total"
         :totalItem="cartGetters.getTotalItems(cart)"
-        :buttonText="'Proceed to Pay'"
+        :buttonText="'Procéder au paiement'"
         :buttonEnable="proceedToPay"
       >
         <template v-slot:buttonIcon>
@@ -248,8 +244,8 @@
       </Footer>
       <ModalSlide :visible="shippingAddressModal" @close="toggleShippingModal">
         <AddressInputs
-          :buttonText="'Save Traveller Details'"
-          :headingText="'Traveller Details'"
+          :buttonText="'Enregistrer détails du voyageur'"
+          :headingText="'Détails du Voyageur'"
           :addressDetails="shippingAddress"
           @getAddress="toggleShippingModal"
           @initCall="initOrder"
@@ -258,8 +254,8 @@
       </ModalSlide>
       <ModalSlide :visible="billingAddressModal" @close="toggleBillingModal">
         <AddressInputs
-          :buttonText="'Save Billing Details'"
-          :headingText="'Billing Details'"
+          :buttonText="'Enregistrer détails de facturation'"
+          :headingText="'Détails de facturation'"
           :addressDetails="billingAddress"
           @getAddress="toggleBillingModal"
           @initCall="initOrder"
