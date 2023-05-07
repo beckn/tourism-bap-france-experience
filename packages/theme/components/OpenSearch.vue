@@ -15,7 +15,7 @@
           placeholder="Search for travel location" :disabled="!selectedLocation.latitude || !selectedLocation.longitude"
           v-e2e="'home-search-input'" /> -->
         <input v-on:keyup.enter="openSearch" ref="input" @input="onInput" v-model="searchAddress" type="text"
-          errorMessage="errer" placeholder="Search for travel location" v-e2e="'home-search-input'" />
+          errorMessage="errer" placeholder="Rechercher un emplacement de voyage" v-e2e="'home-search-input'" />
 
         <SfButton class="button-pos sf-button--pure color-primary" :class="{
           'is-disabled--button':
@@ -36,7 +36,7 @@
         </li>
       </ul>
 
-      <div v-if="errorMsg" class="error-msg">Please fill out this field.</div>
+      <div v-if="errorMsg" class="error-msg">Veuillez remplir ce champ.</div>
     </div>
 
     <div class="sf-footer">

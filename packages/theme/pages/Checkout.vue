@@ -6,7 +6,7 @@
           <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
         </span>
       </div>
-      <div>Checkout</div>
+      <div>Vérifier</div>
     </div>
     <div v-if="enableLoader" key="loadingCircle" class="loader-circle">
       <LoadingCircle :enable="enableLoader" />
@@ -81,13 +81,13 @@
       </div> -->
 
       <div class="sub-heading">
-        <div class="p-name">Traveller Details</div>
+        <div class="p-name">Détails des voyageurs</div>
         <SfButton
           v-if="isShippingAddressFilled"
           class="sf-button--pure"
           @click="toggleShippingModal"
         >
-          <div class="color-def">Change</div>
+          <div class="color-def">Changement</div>
         </SfButton>
       </div>
       <AddressCard
@@ -119,7 +119,7 @@
             v-e2e="'add-shipping-details'"
             class="address-text color-def"
           >
-            Add Traveller Details
+            Add Détails des voyageurs
           </div>
         </CardContent>
       </Card>
@@ -131,7 +131,7 @@
           class="sf-button--pure"
           @click="toggleBillingModal"
         >
-          <div class="color-def">Change</div>
+          <div class="color-def">Changement</div>
         </SfButton>
       </div>
       <Card v-if="isShippingAddressFilled" class="card-checkbox">
@@ -143,7 +143,7 @@
               name="shipping"
             />
           </div>
-          <div class="address-text">Same as Traveller Details</div>
+          <div class="address-text">Same as Détails des voyageurs</div>
         </CardContent>
       </Card>
 
@@ -201,19 +201,19 @@
 
       <div class="order-policy">
         <div class="sub-heading">
-          <div class="p-name">Terms & Condition</div>
+          <div class="p-name">Termes et conditions</div>
         </div>
         <Card>
           <!-- To redo it after order policy content -->
           <!-- <CardContent> -->
 
           <p class="policy-text">
-            Cancellation terms:<br />
-            1. Orders cannot be cancelled once the items are shipped.<br />
+            Termes d'annulation:<br />
+            1. Les commandes ne peuvent pas être annulées une fois les articles expédiés.<br />
             2. Cancellation fee of ₹ 10 will be applied for orders cancelled by
             the buyer.<br /><br />
-            Returns and Refunds:<br />
-            1. Items can be returned within 7 days of delivery with full refund.
+            Retours et remboursements:<br />
+            1. Les articles peuvent être retournés dans les 7 jours suivant la livraison avec un remboursement complet.
           </p>
         </Card>
       </div>
@@ -223,7 +223,7 @@
       @buttonClick="paymentProceed"
       :totalPrice="cartGetters.getTotals(cart).total"
       :totalItem="cartGetters.getTotalItems(cart)"
-      :buttonText="'Proceed to Pay'"
+      :buttonText="'Procéder au paiement'"
       :buttonEnable="proceedToPay"
     >
       <template v-slot:buttonIcon>
@@ -246,8 +246,8 @@
     </Footer>
     <ModalSlide :visible="shippingAddressModal" @close="toggleShippingModal">
       <AddressInputs
-        :buttonText="'Save Traveller Details'"
-        :headingText="'Traveller Details'"
+        :buttonText="'Save Détails des voyageurs'"
+        :headingText="'Détails des voyageurs'"
         :addressDetails="shippingAddress"
         @getAddress="toggleShippingModal"
         @initCall="initOrder"
@@ -256,8 +256,8 @@
     </ModalSlide>
     <ModalSlide :visible="billingAddressModal" @close="toggleBillingModal">
       <AddressInputs
-        :buttonText="'Save Billing Details'"
-        :headingText="'Billing Details'"
+        :buttonText="'Save Détails de la facturation'"
+        :headingText="'Détails de la facturation'"
         :addressDetails="billingAddress"
         @getAddress="toggleBillingModal"
         @initCall="initOrder"

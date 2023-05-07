@@ -40,13 +40,13 @@ export default {
     CardContent
   },
   props: {
-    heading: { type: String, default: 'Payment'},
+    heading: { type: String, default: 'Paiement'},
     totalPaid: { type: Number, default: 0 },
     totalBalance: { type: Number, default: 0 },
     breakup: { type: Array, default: [] },
     transactionId: { type: String, default: '' },
     paymentMethod: { type: String, default: '' },
-    transactionStatus: {type: String, default: 'Pending'}
+    transactionStatus: {type: String, default: 'En attente'}
   },
   setup() {
     return {};

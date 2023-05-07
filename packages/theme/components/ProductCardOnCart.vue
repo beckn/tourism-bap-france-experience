@@ -6,7 +6,7 @@
         <div>
           <div class="s-p-name">{{ _pName }}</div>
           <div class="s-p-retailer">
-            Conducted by {{ _pProviderName }}
+            Conduit par {{ _pProviderName }}
             <span class="s-p-retailer-distance">{{ _pDistance }}</span>
           </div>
           <!-- <div class="s-p-bpp-provider">
@@ -21,12 +21,12 @@
         </div>
         <!-- <div class="s-p-weight">{{ _pWieght }}</div>    -->
         <div class="price-increase" v-if="!!_updatedPrice && _updatedPrice !== _pPrice">
-          Price increased by <span>₹ {{ formatPrice(_updatedPrice - _pPrice) }}</span>
+          Le prix a augmenté de<span>₹ {{ formatPrice(_updatedPrice - _pPrice) }}</span>
         </div>
         <div class="s-p-price" v-if="_updatedCount !== 0">
           ₹ {{ formatPrice(_updatedPrice ? _updatedPrice : _pPrice) }}
         </div>
-        <span class="out-stock" v-if="_updatedCount === 0">Out of Stock</span>
+        <span class="out-stock" v-if="_updatedCount === 0">Rupture de stock</span>
       </div>
       <SfImage v-if="deleteCard" src="/icons/delete.svg" alt="delete-icon" @click="$emit('deleteItem')"
         class="delete-icon" />

@@ -25,7 +25,7 @@
         <div v-if="pollResults && pollResults.length > 0" class="search__wrapper-results" key="results">
           <div>
             <div class="product-list-header">
-              <span class="side-padding travel-package-text">Travel Packages</span>
+              <span class="side-padding travel-package-text">Packages de voyage</span>
             </div>
             <div class="side-padding result-num">
               <div>

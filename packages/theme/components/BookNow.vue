@@ -11,7 +11,7 @@
 
         <button class="sf-button f-button 'color-primary'" :disabled="false" link="" @click="changeItemNumber('add')">
             <slot name="buttonIcon" />
-            <div class="f-btn-text">Book now</div>
+            <div class="f-btn-text">Reserve maintenant</div>
             <SfIcon icon="chevron_right" color="white" :coverage="1" size="xxs" />
         </button>
     </div>

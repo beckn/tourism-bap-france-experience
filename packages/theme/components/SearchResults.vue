@@ -2,7 +2,7 @@
   <div>
     <SfMegaMenu
       :visible="isSearchOpen"
-      :title="$t('Search results')"
+      :title="$t('Résultats de recherche')"
       class="search"
     >
       <transition-group name="sf-fade" class="check-w" mode="out-in">
@@ -17,7 +17,7 @@
           <div class="h-padding result-num">
             <span
               ><span v-e2e="'total-result'">{{ totalResults(catalogs) }}</span>
-              results not found found</span
+              Résultats introuvables found</span
             >
           </div>
           <div v-for="(bpp, bppIndex) in catalogs" :key="bppIndex">
@@ -113,10 +113,10 @@
             loading="lazy"
           />
           <p class="before-results__paragraph">
-            {{ $t('You haven’t searched for items yet') }}
+            {{ $t('Vous n'avez pas encore cherché des articles') }}
           </p>
           <p class="before-results__paragraph">
-            {{ $t('Let’s start now – we’ll help you') }}
+            {{ $t('Commençons maintenant - nous vous aiderons') }}
           </p>
         </div>
       </transition-group>
@@ -126,7 +126,7 @@
         @buttonClick="footerClick"
         :totalPrice="cart.totalPrice"
         :totalItem="cart.totalItems"
-        buttonText="View Cart"
+        buttonText="Voir le chariot"
       >
         <template v-slot:buttonIcon>
           <SfIcon icon="empty_cart" color="white" :coverage="1" />

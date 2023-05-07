@@ -2,7 +2,7 @@
   <div>
     <div class="top-bar">
       <div class="header-push" style="    padding-left: 5%;">
-        Booking Details
+        Les détails de réservation
       </div>
       <div>
         <CopyOrderDropdownContent @openQR="toggleQR" />
@@ -50,10 +50,10 @@
         <SfAccordion>
           <h5 style="color:#387f9a;font-size: 17px;
                         font-weight: 500;">
-            My Trip
+            Mon voyage
           </h5>
           <CardContent class="flex-space-bw">
-            <div class="address-text"><span>Booked on</span></div>
+            <div class="address-text"><span>Réservé</span></div>
             <div class="order-desrciption order-id">
               <span>{{ orderPlacementTime }}</span>
             </div>
@@ -82,7 +82,7 @@
 
             </CardContent>
             <CardContent v-if="orderStatusData && orderStatusData[index]" class="flex-space-bw">
-              <div class="address-text"><span>Status</span></div>
+              <div class="address-text"><span>Statut</span></div>
               <div class="status-text">
                 <span>
                   <!-- {{
@@ -90,7 +90,7 @@
                       orderStatusData[index].state.slice(1).toLowerCase()
                 
                   }} -->
-                  Confirmed
+                  Confirmé
                 </span>
               </div>
             </CardContent>
@@ -110,7 +110,7 @@
                   openTrackModal = true;
                 selectedTrackingId = index;
                                     ">
-                  <div class="color-def">Track</div>
+                  <div class="color-def">Traquez</div>
                 </SfButton>
 
                 <SfButton class="sf-button--pure" @click="
@@ -133,7 +133,7 @@
         <SfAccordion>
           <h5 style="color:#387f9a;font-size: 17px;
                         font-weight: 500;">
-            Traveller Details
+            Détails des voyageurs
           </h5>
           <AddressCard :name="order.shippingAddress.name" :address="order.shippingAddress.address"
             :mobile="order.shippingAddress.mobile" :building="order.shippingAddress.building"
@@ -147,7 +147,7 @@
         <SfAccordion>
           <h5 style="color:#387f9a;font-size: 17px;
                         font-weight: 500;">
-            Payment
+            Paiement
           </h5>
           <div :key="orderId" v-for="(value, orderId) in order.orderData">
             <div :key="id" v-for="(breakup, id) in value.quote.breakup">
@@ -163,13 +163,13 @@
               <hr class="sf-divider divider" />
             </div>
             <CardContent class="flex-space-bw">
-              <div class="address-text">Subtotal</div>
+              <div class="address-text">Sous-total</div>
               <div class="address-text-value">
                 ₹ {{ formatPrice(value.quote.price.value) }}
               </div>
             </CardContent>
             <CardContent class="flex-space-bw">
-              <div class="address-text">Status</div>
+              <div class="address-text">Statut</div>
               <div class="address-text-value">
                 {{
                   value.payment.status.charAt(0).toUpperCase() +
@@ -179,7 +179,7 @@
             </CardContent>
           </div>
           <CardContent class="flex-space-bw">
-            <div class="address-text">Method</div>
+            <div class="address-text">Méthode</div>
             <div class="address-text-value">{{ order.paymentMethod }}</div>
           </CardContent>
           <div></div>
@@ -190,7 +190,7 @@
         <SfAccordion>
           <h5 style="color:#387f9a;font-size: 17px;
                         font-weight: 500;">
-            Open in Wallet
+            Ouvert dans le portefeuille
           </h5>
           <CardContent class="flex-space-bw">
             <div class="open-wallet-QR-container">
@@ -223,14 +223,14 @@
       <div class="sub-heading"></div>
 
       <button class="sf-button color-primary support-btns card-checkbox" @click="goHome">
-        <div class="f-btn-text">Home</div>
+        <div class="f-btn-text">Maison</div>
       </button>
 
       <ModalSlide :visible="openSupportModal" @close="
         openSupportModal = false;
       selectedSupportId = null;
                 ">
-        <div class="modal-heading">Contact Support</div>
+        <div class="modal-heading">Contactez le support</div>
         <div>
           <hr class="sf-divider" />
         </div>
@@ -247,7 +247,7 @@
             </div>
             <SfButton class="support-btns" v-if="supportData[selectedSupportId].phone"
               @click="openWindow('tel:' + supportData[selectedSupportId].phone)" aria-label="Close modal" type="button">
-              Call us</SfButton>
+              Nous appeler</SfButton>
             <SfButton class="support-btns" v-if="supportData[selectedSupportId].email" @click="
               openWindow('mailto:' + supportData[selectedSupportId].email)
             " aria-label="Close modal" type="button">Email us</SfButton>
@@ -256,7 +256,7 @@
             </SfButton>
           </div>
           <div v-else class="support-text">
-            No Support available at the moment
+            Aucun support disponible pour le moment
           </div>
         </div>
       </ModalSlide>
@@ -265,13 +265,13 @@
         openTrackModal = false;
       selectedTrackingId = null;
                 ">
-        <div class="modal-heading">Track</div>
+        <div class="modal-heading">Traquez</div>
         <div>
           <hr class="sf-divider" />
         </div>
         <div class="modal-body">
           <div v-if="!trackingData[selectedTrackingId]" class="support-text">
-            No Tracking details available
+            Aucun détail de suivi disponible
             <!-- {{
               providerGetters.getProviderName(
                 cartGetters.getBppProvider(order.cart)
@@ -283,10 +283,10 @@
               @click="openWindow(trackingData[selectedTrackingId])">open Link</SfButton>
           </div>
           <!-- <SfButton class="support-btns" aria-label="Close modal" type="button"
-            >Call us</SfButton
+            >Nous appeler</SfButton
           >
           <SfButton class="support-btns" aria-label="Close modal" type="button"
-            >Chat with us</SfButton
+            >Discute avec nous</SfButton
           > -->
         </div>
       </ModalSlide>

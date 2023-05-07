@@ -6,14 +6,14 @@
           <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
         </span>
       </div>
-      <div class="">Select Payment Method</div>
+      <div class="">Select Paiement Method</div>
     </div>
     <div v-if="enableLoader" key="loadingCircle" class="loader-circle">
       <LoadingCircle :enable="enableLoader" />
     </div>
     <div class="details header-push">
       <div class="sub-heading">
-        <div class="p-name">Payment</div>
+        <div class="p-name">Paiement</div>
       </div>
       <Card v-if="order.cart">
         <div v-for="(value, bppId) in order.cart.quoteItem" :key="bppId">
@@ -47,7 +47,7 @@
         </div>
       </Card>
       <div class="sub-heading">
-        <div class="p-name">Other</div>
+        <div class="p-name">Autre</div>
       </div>
       <Card>
         <CardContent>
