@@ -5,7 +5,7 @@
         <div class="f-total">Total</div>
         <div>
           <span class="f-p-total">€ {{ formatPrice(totalPrice) }} </span><span class="f-items">{{ totalItem }}
-            Items</span>
+            Articles</span>
         </div>
       </div>
     </div>

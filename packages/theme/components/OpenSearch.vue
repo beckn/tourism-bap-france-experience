@@ -14,13 +14,13 @@
     </div>
     <div class="open-search header-top-space">
       <h3>
-        Travel <br />
-        Experience
+        Expérience <br />
+        de voyage
       </h3>
-      <h4>for All</h4>
+      <h4>pour tous</h4>
       <p>
-        A global marketplace to discover anything you need. Just type where you
-        want to go and we'll take care of the rest.
+        Un marché mondial pour découvrir n'importe quelle destination. Tapez simplement où vous voulez aller et nous nous
+        occupons du reste.
       </p>
       <div class="open-search-input">
         <!-- <input v-on:keyup.enter="openSearch" v-model="message" :valid="false" errorMessage="errer" type="text"
@@ -31,7 +31,7 @@
           ref="input" />
 
         <input v-on:keyup.enter="openSearch" ref="input" @input="onInput" v-model="searchAddress" type="text"
-          errorMessage="errer" placeholder="Search for travel location" v-e2e="'home-search-input'" />
+          errorMessage="errer" placeholder="Rechercher un emplacement de voyage" v-e2e="'home-search-input'" />
 
         <SfButton class="button-pos sf-button--pure color-primary" :class="{
           'is-disabled--button': !searchAddress
@@ -51,14 +51,14 @@
         </li>
       </ul>
 
-      <div v-if="errorMsg" class="error-msg">Please fill out this field.</div>
+      <div v-if="errorMsg" class="error-msg">Veuillez remplir ce champ.</div>
     </div>
 
     <div class="sf-footer">
       <SfFooter class="footer">
         <!-- <p><span>By</span> <img src="../assets/images/p-b-phonepe.png" alt="" /> </p> -->
         <p>
-          <span class="powered-by">Powered by</span>
+          <span class="powered-by">Propulsé par</span>
           <img src="../assets/images/beckn-logo.png" alt="" />
         </p>
       </SfFooter>

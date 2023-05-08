@@ -5,16 +5,15 @@
       <div class="top-bar"></div>
       <div class="details">
         <img src="/icons/cancelOrder.svg" alt="" />
-        <div class="head">Order Cancelled</div>
+        <div class="head">Commande annulée</div>
         <div class="sub">
-          Your order has been Cancelled, If already paid, will get your refund
-          soon
+          Votre commande a été annulée, si elle a déjà été payée, vous recevrez votre remboursement bientôt
         </div>
         <button class="sf-button color-primary" @click="goBack">
-          <div>Go back Home</div>
+          <div>Page d'accueil</div>
         </button>
         <button class="sf-button color-light continue" @click="goBack">
-          <div class="f-btn-text">Continue Shopping</div>
+          <div class="f-btn-text">Continuer vos achats</div>
         </button>
       </div>
     </div>

@@ -7,7 +7,7 @@
           <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
         </span>
       </div>
-      <div>Orders</div>
+      <div>Ordres</div>
     </div>
     <!-- <div class="sub-heading">
         <div class="p-name">Other</div>
@@ -40,7 +40,7 @@
                 </div>
               </div>
               <div class="order color-def">
-                <div class="order-id">Order ID {{ order.parentOrderId }}</div>
+                <div class="order-id">Commande ID {{ order.parentOrderId }}</div>
                 <!-- Hardcoding to use first orderData. To be changed when we get more details on this page -->
                 <div class="order-status">
                   {{ order.orderData[Object.keys(order.orderData)[0]].state }}
@@ -75,14 +75,14 @@
       <!-- Empty order page -->
       <div v-else>
         <div class="emptyOrderListPage">
-          <h5>No Orders to Display</h5>
+          <h5>Aucune commande à afficher</h5>
         </div>
         <div class="sf-button--pure sf-quantity-selector__button sf-button">
           <button class="orderNowButtonForEmptyOrderListPage">
             <nuxt-link
               class="orderNowButtonForEmptyOrderListPageChild"
               :to="localePath('/')"
-              >Order Now</nuxt-link
+              >Commandez maintenant</nuxt-link
             >
           </button>
         </div>

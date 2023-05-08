@@ -52,7 +52,7 @@
               src="/icons/empty-cart.svg"
             />
             <SfHeading
-              title="Your cart is empty"
+              title="Votre panier est vide"
               :level="2"
               class="empty-cart__heading"
               description="Looks like you haven’t added any items to the bag yet. Start
@@ -81,7 +81,7 @@
             <SfInput
               v-model="itemNumber"
               type="number"
-              label="Enter Quantity"
+              label="Entrer la quantité"
               name="locality"
               @change="() => {}"
             />

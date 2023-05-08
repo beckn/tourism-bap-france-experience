@@ -7,7 +7,7 @@
           <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
         </span>
       </div>
-      <div class="header-push">Sign in</div>
+      <div class="header-push">S'identifier</div>
     </div>
     <div class="open-search">
       <!-- <SfImage
@@ -49,7 +49,7 @@
                   />
                 </g></svg></span
             ><span class="social-span-content"
-              >Sign in with Google</span
+              >Connectez-vous avec Google</span
             ></SfButton
           >
         </div>
@@ -80,7 +80,7 @@
                   />
                 </g></svg></span
             ><span class="social-span-content"
-              >Sign in with Facebook
+              >Connectez-vous avec Facebook
             </span></SfButton
           >
         </div>

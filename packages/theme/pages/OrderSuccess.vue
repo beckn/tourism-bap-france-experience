@@ -8,16 +8,16 @@
       </div>
       <div class="details">
         <div class="sub-heading dis-block">
-          <div class="p-name flex-set">Success!</div>
-          <div class="p-name flex-set">Your package has been booked</div>
+          <div class="p-name flex-set">Succès!</div>
+          <div class="p-name flex-set">Votre colis a été réservé</div>
         </div>
         <div class="sub-heading">
-          Thank You! your package is currently being processed
+          Merci! Votre colis est actuellement en cours
         </div>
         <button class="sf-button button color-primary" link="" @click="goToOrderDetails">
           <!-- button icon template  -->
           <slot name="buttonIcon" />
-          <div class="f-btn-text">VIEW Booking</div>
+          <div class="f-btn-text">Afficher la réservation</div>
         </button>
       </div>
     </div>
