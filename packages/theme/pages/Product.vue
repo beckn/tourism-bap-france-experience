@@ -1,7 +1,6 @@
 <template>
-  
   <div class="Product-container" id="product">
-    <div><Location/></div>
+    <div><Location /></div>
     <div @click="goBack" class="sf-chevron--left sf-chevron icon_back">
       <span class="sf-search-bar__icon">
         <SfIcon color="var(--c-primary)" size="20px" icon="chevron_left" />
@@ -69,7 +68,7 @@ import {
   SfButton,
   SfColor
 } from '@storefront-ui/vue';
-import Location from '../components/Location'
+import Location from '../components/Location';
 import AddToCart from '~/components/AddToCart.vue';
 import BookNow from '~/components/BookNow.vue';
 import ImagesScroll from '~/components/ImagesScroll.vue';
@@ -80,6 +79,7 @@ import { useCart, cartGetters, productGetters } from '@vue-storefront/beckn';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { onBeforeMount, ref, watch } from '@vue/composition-api';
+import helpers from '../helpers/helpers';
 
 export default {
   name: 'Product',
@@ -102,9 +102,9 @@ export default {
     );
 
     const data = context.root.$route.query.data;
-    const { product, bpp, bppProvider, locations } = JSON.parse(
-      Buffer.from(data, 'base64').toString()
-    );
+    const decoded = atob(data);
+    const original = helpers.fromBinary(decoded);
+    const { product, bpp, bppProvider, locations } = JSON.parse(original);
 
     const { addItem, cart, load, isInCart } = useCart();
 
@@ -173,8 +173,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 .trek-description-container {
   display: block;
   width: 82%;
@@ -284,7 +282,6 @@ export default {
   .cart-checkout {
     background: #387f9a;
   }
-
 }
 
 .sf-accordion.product__tabs.has-chevron {
