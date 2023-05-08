@@ -3,12 +3,7 @@
     <div class="top-bar">
       <div>
         <nuxt-link :to="localePath('/')">
-          <SfImage
-            src="/icons/travel.svg"
-            :width="37"
-            :height="32"
-            alt="Vue Storefront Next"
-          />
+          <SfImage src="/icons/travel.svg" :width="37" :height="32" alt="Vue Storefront Next" />
           <span class="subtext">Travelio</span>
         </nuxt-link>
       </div>
@@ -32,55 +27,26 @@
           placeholder="Search for travel location" :disabled="!selectedLocation.latitude || !selectedLocation.longitude"
           v-e2e="'home-search-input'" /> -->
 
-        <SfImage
-          class="location-img"
-          src="/icons/location.svg"
-          :width="12"
-          :height="17"
-          alt="Vue Storefront Next"
-          ref="input"
-        />
+        <SfImage class="location-img" src="/icons/location.svg" :width="12" :height="17" alt="Vue Storefront Next"
+          ref="input" />
 
-        <input
-          v-on:keyup.enter="openSearch"
-          ref="input"
-          @input="onInput"
-          v-model="searchAddress"
-          type="text"
-          errorMessage="errer"
-          placeholder="Search for travel location"
-          v-e2e="'home-search-input'"
-        />
+        <input v-on:keyup.enter="openSearch" ref="input" @input="onInput" v-model="searchAddress" type="text"
+          errorMessage="errer" placeholder="Search for travel location" v-e2e="'home-search-input'" />
 
-        <SfButton
-          class="button-pos sf-button--pure color-primary"
-          :class="{
-            'is-disabled--button': !searchAddress
-          }"
-          @click="openSearch"
-          :disabled="!searchAddress"
-          v-e2e="'home-search-button'"
-        >
+        <SfButton class="button-pos sf-button--pure color-primary" :class="{
+          'is-disabled--button': !searchAddress
+        }" @click="openSearch" :disabled="!searchAddress" v-e2e="'home-search-button'">
           <span class="sf-search-bar__icon">
             <SfIcon color="var(--c-text)" size="18px" icon="search" />
           </span>
         </SfButton>
       </div>
 
-      <ul
-        ref="locationListDropdown"
-        v-if="showDropdown"
-        class="home-page-location-list"
-      >
-        <li
-          :class="{
-            'location-list-item': true,
-            'location-list-last-item': i === searchResults.length - 1
-          }"
-          v-for="(result, i) in searchResults"
-          :key="i"
-          @click="getLocationDetails(result)"
-        >
+      <ul ref="locationListDropdown" v-if="showDropdown" class="home-page-location-list">
+        <li :class="{
+          'location-list-item': true,
+          'location-list-last-item': i === searchResults.length - 1
+        }" v-for="(result, i) in searchResults" :key="i" @click="getLocationDetails(result)">
           {{ result.description }}
         </li>
       </ul>
@@ -125,10 +91,10 @@ export default {
 
   created() {
     if (process.client) {
-      if(window) {
+      if (window && window.google) {
         this.service = new window.google.maps.places.AutocompleteService();
-      this.geocodeService = new window.google.maps.Geocoder();
-      }   
+        this.geocodeService = new window.google.maps.Geocoder();
+      }
       // if (navigator.geolocation) {
       //   navigator.geolocation.getCurrentPosition(position => {
       //     const { latitude, longitude } = position.coords;
@@ -210,7 +176,7 @@ export default {
     const errorMsg = ref(false);
 
     const openSearch = () => {
-     
+
       if (localStorage.getItem('selectedLocation')) {
         if (errorMsg.value) errorMsg.value = false;
         context.root.$router.push({
@@ -242,6 +208,7 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+
 .subtext {
   position: relative;
   bottom: 10px;
@@ -254,6 +221,7 @@ export default {
 
   color: #ffffff;
 }
+
 .open-search {
   @media (min-width: 560px) {
     padding-top: 40px;
@@ -262,12 +230,13 @@ export default {
   }
 
   padding: 40px 20px;
+
   .location-img {
     position: relative;
     top: 12px;
     padding: 10px;
     left: 5px;
-    
+
   }
 
   h3 {
