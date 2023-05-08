@@ -353,13 +353,13 @@
         <div class="modal-body">
           <div class="support-text" style="text-align: center;">
             Scannez ce QR
- <br />
+            <br />
             pour ouvrir cette commande dans une autre application
           </div>
           <br />
           <div style="display: flex; align-items: center; justify-content: center;">
             <!-- <SfImage alt="copypast" class="e" src="/icons/QR.png" /> -->
-            <qrcode-vue :value="`https://experience-guide-staging.becknprotocol.io/SelectionPage??external_url=${orderObjectFetchUrl}`
+            <qrcode-vue :value="`https://experience-guide-french-infra.becknprotocol.io/SelectionPage??external_url=${orderObjectFetchUrl}`
               " size="200" level="L" />
           </div>
           <br />
