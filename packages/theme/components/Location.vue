@@ -53,23 +53,15 @@
           </div>
         </div> -->
         <div class="user-cart-content">
-          <!-- <div class="cart-content">
-            <nuxt-link :to="localePath('/cart')">
-              <SfButton class="button-pos sf-button--pure">
-                <SfImage src="/icons/cart.png" alt="icon" />
 
-                <!-- //<SfIcon icon="empty_cart" /> -->
-              <!-- </SfButton> -->
-            <!-- </nuxt-link> -->
-          <!-- </div> --> 
           <div class="user-content">
             <div>
               <div>
                 <div>
                   <!-- <SfButton class="button-pos sf-button--pure"> -->
-                    <!-- <SfIcon icon="profile" /> -->
-                    <SfImage src="/icons/profile.png" alt="icon" />
-                    <!-- <SfIcon
+                  <!-- <SfIcon icon="profile" /> -->
+                  <SfImage src="/icons/profile.png" alt="icon" />
+                  <!-- <SfIcon
                           v-if="openHamburger"
                           icon="chevron_up"
                           size="xxs"
@@ -175,7 +167,7 @@ export default {
       return this.location !== '';
     },
     locationText() {
-      return this.location !== '' ? 'Votre emplacement' : 'Définir l'emplacement';
+      return this.location !== '' ? 'Votre emplacement' : "Définir l'emplacement";
     },
     isAuthenticatedUser() {
       return this.currentUser !== null;
@@ -198,7 +190,7 @@ export default {
 
 .layout-container {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   width: 100%;
   padding: 15px;
 }

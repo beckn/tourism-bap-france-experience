@@ -5,85 +5,24 @@
       <hr class="sf-divider" />
     </div>
     <div class="address-inputs-container">
-      <SfInput
-        v-e2e="'name-input'"
-        :valid="!validateInput('Name')"
-        :errorMessage="validateInput('Name')"
-        v-model="address.name"
-        :type="'text'"
-        :label="'Nom*'"
-        :name="'Nom'"
-      />
-      <SfInput
-        v-e2e="'name-input'"
-        :valid="!validateInput('Age')"
-        :errorMessage="validateInput('Age')"
-        v-model="address.age"
-        :type="'number'"
-        :label="'Age*'"
-         pattern="[0-9]{10}"
-         maxlength="2"
-        :name="'Age'"
-      />
-      <SfInput
-        v-e2e="'mobile-input'"
-        :valid="!validateInput('mobile')"
-        :errorMessage="validateInput('mobile')"
-        v-model="address.mobile"
-        :type="'number'"
-        :label="'Numéro de portable*'"
-        pattern="[0-9]{10}"
-        maxlength="10"
-        autocomplete="tel"
-        :name="'mobile'"
-      />
-      <SfInput
-        v-e2e="'pin-input'"
-        v-model="address.pincode"
-        :type="'number'"
-        :maxlength="6"
-        :max="999999"
-        min="0"
-        pattern="[0-9]{6}"
-        :label="'Code Postal*'"
-        :name="'Code Postal'"
-        :valid="!validateInput('Pincode')"
-        :errorMessage="validateInput('Pincode')"
-      />
-      <SfInput
-        v-e2e="'full-address-input'"
-        :valid="!validateInput('address')"
-        :errorMessage="validateInput('address')"
-        v-model="address.address"
-        :type="'text'"
-        :label="'Adresse complète*'"
-        :name="'address'"
-      />
-      <SfInput
-        v-e2e="'building-input'"
-        v-model="address.building"
-        :type="'text'"
-        :label="'Nom du bâtiment et plancher'"
-        :name="'building'"
-      />
-      <SfInput
-        v-e2e="'landmark-input'"
-        v-model="address.landmark"
-        :type="'text'"
-        :label="'Repère'"
-        :name="'locality'"
-        @change="() => {}"
-      />
-      <SfButton
-        v-e2e="'add-address'"
-        class="address-button"
-        aria-label="Close modal"
-        type="button"
-        @click="saveDetails"
-        style="width: 100%"
-        :disabled="!buttonEnable"
-        >{{ buttonText }}</SfButton
-      >
+      <SfInput v-e2e="'name-input'" :valid="!validateInput('Name')" :errorMessage="validateInput('Name')"
+        v-model="address.name" :type="'text'" :label="'Nom*'" :name="'Nom'" />
+      <SfInput v-e2e="'name-input'" :valid="!validateInput('Age')" :errorMessage="validateInput('Age')"
+        v-model="address.age" :type="'number'" :label="'Age*'" pattern="[0-9]{10}" maxlength="2" :name="'Age'" />
+      <SfInput v-e2e="'mobile-input'" :valid="!validateInput('mobile')" :errorMessage="validateInput('mobile')"
+        v-model="address.mobile" :type="'number'" :label="'Numéro de portable*'" pattern="[0-9]{10}" maxlength="10"
+        autocomplete="tel" :name="'mobile'" />
+      <SfInput v-e2e="'pin-input'" v-model="address.pincode" :type="'number'" :maxlength="6" :max="999999" min="0"
+        pattern="[0-9]{6}" :label="'Code Postal*'" :name="'Code Postal'" :valid="!validateInput('Pincode')"
+        :errorMessage="validateInput('Pincode')" />
+      <SfInput v-e2e="'full-address-input'" :valid="!validateInput('address')" :errorMessage="validateInput('address')"
+        v-model="address.address" :type="'text'" :label="'Adresse complète*'" :name="'address'" />
+      <SfInput v-e2e="'building-input'" v-model="address.building" :type="'text'" :label="'Nom du bâtiment et plancher'"
+        :name="'building'" />
+      <SfInput v-e2e="'landmark-input'" v-model="address.landmark" :type="'text'" :label="'Repère'" :name="'locality'"
+        @change="() => { }" />
+      <SfButton v-e2e="'add-address'" class="address-button" aria-label="Close modal" type="button" @click="saveDetails"
+        style="width: 100%" :disabled="!buttonEnable">{{ buttonText }}</SfButton>
     </div>
   </div>
 </template>
@@ -114,7 +53,7 @@ export default {
         building: '',
         landmark: '',
         address: '',
-        age:null
+        age: null
       }
     },
     buttonEnable: { type: Boolean, default: true }
@@ -137,7 +76,7 @@ export default {
       switch (field) {
         case 'Name':
           if (address.value.name && address.value.name.length < 2) {
-            return 'Merci d'entrer un nom valide';
+            return "Merci d'entrer un nom valide";
           }
           break;
         case 'Age':
