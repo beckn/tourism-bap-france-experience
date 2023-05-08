@@ -3,6 +3,20 @@
     <div class="location-blk d-flex w-100">
       <!-- <SfCircleIcon class="sf-circle-icon--large left-pos" aria-label="marker" icon="marker" icon-size="18px" /> -->
       <div class="layout-container">
+        <div
+          style="position: relative; top: 10px;"
+        >
+          <nuxt-link :to="localePath('/')">
+            <SfButton class="button-pos sf-button--pure">
+              <SfImage
+                src="/icons/travellio.png"
+                :width="123"
+                :height="30"
+                alt="Vue Storefront Next"
+              />
+            </SfButton>
+          </nuxt-link>
+        </div>
         <!-- <div class="location-content">
           <client-only>
             <div class="location-icon">
@@ -59,17 +73,17 @@
                 <SfImage src="/icons/cart.png" alt="icon" />
 
                 <!-- //<SfIcon icon="empty_cart" /> -->
-              <!-- </SfButton> -->
-            <!-- </nuxt-link> -->
-          <!-- </div> --> 
+          <!-- </SfButton> -->
+          <!-- </nuxt-link> -->
+          <!-- </div> -->
           <div class="user-content">
             <div>
               <div>
                 <div>
                   <!-- <SfButton class="button-pos sf-button--pure"> -->
-                    <!-- <SfIcon icon="profile" /> -->
-                    <SfImage src="/icons/profile.png" alt="icon" />
-                    <!-- <SfIcon
+                  <!-- <SfIcon icon="profile" /> -->
+                  <SfImage src="/icons/profile.png" alt="icon" />
+                  <!-- <SfIcon
                           v-if="openHamburger"
                           icon="chevron_up"
                           size="xxs"
@@ -83,8 +97,6 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -198,7 +210,7 @@ export default {
 
 .layout-container {
   display: flex;
-  justify-content:flex-end;
+  justify-content: space-between;
   width: 100%;
   padding: 15px;
 }
@@ -254,7 +266,8 @@ export default {
   position: absolute;
   top: -0.25rem;
   left: 50%;
-  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transform: translateX(-50%) translateY(var(--translate-y, 0))
+    scale(var(--scale));
   transition: 150ms transform;
   transform-origin: bottom center;
 }
