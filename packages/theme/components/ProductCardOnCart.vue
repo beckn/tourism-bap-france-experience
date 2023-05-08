@@ -5,7 +5,8 @@
       <div @click="$emit('goToProduct')" class="s-p-details">
         <div>
           <div class="s-p-name">{{ _pName }}</div>
-          <div class="s-p-retailer">
+          <div class="s-p-retailer">Date: {{ _endDate }}</div>
+          <div style="margin-top: 8px;" class="s-p-retailer">
             Conducted by {{ _pProviderName }}
             <span class="s-p-retailer-distance">{{ _pDistance }}</span>
           </div>
@@ -21,10 +22,10 @@
         </div>
         <!-- <div class="s-p-weight">{{ _pWieght }}</div>    -->
         <div class="price-increase" v-if="!!_updatedPrice && _updatedPrice !== _pPrice">
-          Price increased by <span>€  {{ formatPrice(_updatedPrice - _pPrice) }}</span>
+          Price increased by <span>€ {{ formatPrice(_updatedPrice - _pPrice) }}</span>
         </div>
         <div class="s-p-price" v-if="_updatedCount !== 0">
-          €  {{ formatPrice(_updatedPrice ? _updatedPrice : _pPrice) }}
+          € {{ formatPrice(_updatedPrice ? _updatedPrice : _pPrice) }}
         </div>
         <span class="out-stock" v-if="_updatedCount === 0">Out of Stock</span>
       </div>
@@ -83,7 +84,8 @@ export default {
     updatedCount: { type: Number, default: null },
     horizontalView: { type: Boolean, default: true },
     deleteCard: { type: Boolean, default: false },
-    dropdownCouner: { type: Boolean, default: false }
+    dropdownCouner: { type: Boolean, default: false },
+    endDate: { type: String, default: '' }
   },
   setup(props, { emit }) {
     const _pName = computed(() => props.pName);
@@ -98,6 +100,7 @@ export default {
     const _updatedCount = computed(() => props.updatedCount);
     const dpList = [1, 2, 3, 4, 'More'];
     const openDropdown = ref(false);
+    const _endDate = computed(() => props.endDate)
 
     const dropdownClick = (data) => {
       console.log(data);
@@ -124,7 +127,8 @@ export default {
       openDropdown,
       _updatedPrice,
       _updatedCount,
-      dropdownClick
+      dropdownClick,
+      _endDate
     };
   },
   methods: {

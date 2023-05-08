@@ -47,7 +47,7 @@
             <div>
               <div class="product-list-header">
                 <span class="side-padding travel-package-text"
-                  >Travel Packages</span
+                  >Top experiences in {{ searchKey }}</span
                 >
               </div>
               <div class="side-padding result-num">

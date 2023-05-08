@@ -60,6 +60,7 @@
             :horizontalView="false"
             :deleteCard="true"
             :dropdownCouner="true"
+            :endDate="endDateOfEvent"
             @updateItemCount="(item) => updateItemCount(item, index)"
             @deleteItem="updateItemCount(0, index)"
             @dropdownMore="toggleModal(index)"
@@ -185,6 +186,7 @@ export default {
     const errPricechange = ref(false);
     const enableLoader = ref(true);
     const validInput = ref(true);
+    const endDateOfEvent = ref('')
 
     toggleSearchVisible(false);
 
@@ -394,6 +396,7 @@ export default {
     onBeforeMount(async () => {
       await load();
       await matchQuote();
+      endDateOfEvent.value = cart.value.items[0].tags.fulfillment_end_time
     });
 
     const onChangeInput = (value) => {
@@ -418,7 +421,8 @@ export default {
       enableLoader,
       updateAll,
       validInput,
-      onChangeInput
+      onChangeInput,
+      endDateOfEvent
     };
   }
 };

@@ -12,13 +12,6 @@
       </div>
     </div>
 
-    <!-- <Dropdown>
-        <div>
-          <!-- <SfIcon icon="profile" /> -->
-    <!-- <SfImage src="/icons/importOrderIcon.svg" alt="icon" />
-        </div> -->
-    <!-- </Dropdown> -->
-
     <div v-if="enableLoader" key="loadingCircle" class="loader-circle">
       <LoadingCircle :enable="enableLoader" />
     </div>
