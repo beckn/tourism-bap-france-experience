@@ -112,6 +112,7 @@ import {
   useFacet,
   useSearch
 } from '@vue-storefront/beckn';
+import helpers from '../helpers/helpers';
 
 export default {
   name: 'Search',
@@ -288,18 +289,20 @@ export default {
       console.log('bpp of the product 1', bpp);
       console.log('this is a test log 1');
       const data = btoa(
-        JSON.stringify({
-          product,
-          bpp: {
-            id: bpp.bpp_id,
-            descriptor: bpp.bpp_descriptor
-          },
-          bppProvider: {
-            id: provider.id,
-            descriptor: provider.descriptor
-          },
-          locations: provider.locations
-        })
+        helpers.toBinary(
+          JSON.stringify({
+            product,
+            bpp: {
+              id: bpp.bpp_id,
+              descriptor: bpp.bpp_descriptor
+            },
+            bppProvider: {
+              id: provider.id,
+              descriptor: provider.descriptor
+            },
+            locations: provider.locations
+          })
+        )
       );
 
       context.root.$router.push({
