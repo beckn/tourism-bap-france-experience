@@ -439,6 +439,7 @@ export default {
   color: #37474f;
 }
 .link-text {
+  cursor: pointer;
   position: relative;
   top: 16px;
   //font-family: 'SF Pro Text';

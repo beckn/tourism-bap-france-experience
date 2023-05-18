@@ -167,6 +167,7 @@ export default {
 <style lang="scss" scoped>
 .s-product {
   height: 129px;
+  cursor: pointer;
 }
 
 .s-p-bpp-provider {
