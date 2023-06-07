@@ -22,18 +22,19 @@ export default async function getProduct(
 
   const qParams = {
     context: {
-      // transaction_id: "string",
-      // bpp_id: "string"
+      domain: 'tourism'
     },
     message: {
       criteria: criteriaData
     }
   };
-  const config = context.config as Config;
+
   const client = context.client as sa.SuperAgent<sa.SuperAgentRequest>;
   Logger.error(qParams);
   return client
-    .post(config.api.url + config.api.endpoints.search)
+    .post(
+      'https://api-node-dev.mobilityreferencebap.becknprotocol.io/client/v1/search'
+    )
     .send(qParams)
     .then((res) => {
       return res.body as AckResponse;
