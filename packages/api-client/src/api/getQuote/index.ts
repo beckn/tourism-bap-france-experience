@@ -14,7 +14,7 @@ export default async function getQuote(
 
   return client
     .post(
-      'https://api-node-dev.mobilityreferencebap.becknprotocol.io/client/v1/get_quote'
+      'https://api-node-dev.mobilityreferencebap.becknprotocol.io/client/v2/get_quote'
     )
     .send(params)
     .then((res) => {

@@ -14,10 +14,10 @@ export default async function getProduct(
   customQuery?: CustomQuery
 ): Promise<AckResponse> {
   const criteriaData: { [k: string]: any } = {
-    delivery_location: params.locationIs
+    dropLocation: params.locationIs
   };
-  if (params.providerId) criteriaData.provider_id = params.providerId;
-  if (params.itemContains) criteriaData.search_string = params.itemContains;
+  // if (params.providerId) criteriaData.provider_id = params.providerId;
+  if (params.itemContains) criteriaData.searchString = params.itemContains;
   if (params.category) criteriaData.category_name = params.category;
 
   const qParams = {
@@ -33,7 +33,7 @@ export default async function getProduct(
   Logger.error(qParams);
   return client
     .post(
-      'https://api-node-dev.mobilityreferencebap.becknprotocol.io/client/v1/search'
+      'https://api-node-dev.mobilityreferencebap.becknprotocol.io/client/v2/search'
     )
     .send(qParams)
     .then((res) => {
