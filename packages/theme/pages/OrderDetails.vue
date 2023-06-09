@@ -358,7 +358,7 @@
           <br />
           <div style="display: flex; align-items: center; justify-content: center;">
             <!-- <SfImage alt="copypast" class="e" src="/icons/QR.png" /> -->
-            <qrcode-vue :value="`https://experience-guide-staging.becknprotocol.io/SelectionPage??external_url=${orderObjectFetchUrl}`
+            <qrcode-vue :value="`https://experience-guide.becknprotocol.io/SelectionPage??external_url=${orderObjectFetchUrl}`
               " size="200" level="L" />
           </div>
           <br />
