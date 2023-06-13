@@ -51,23 +51,15 @@
       <Card v-show="isStudent">
         <CardContent>
           <div style="display:flex">
-            <SfRadio
-              class="sf-radio--transparent"
-              :name="'Payment'"
-              :value="'Student Culture Wallet'"
-              label="Student Culture Wallet"
-              :disabled="!availablebalance"
-              :selected="paymentMethod"
-              @change="changePaymentMethod"
-            />
+            <SfRadio class="sf-radio--transparent" :name="'Payment'" :value="'Student Culture Wallet'"
+              label="Student Culture Wallet" :disabled="!availablebalance" :selected="paymentMethod"
+              @change="changePaymentMethod" />
 
             <span style="position: relative; top: 16px;right:21px">
               <span v-show="availablebalance" class="badge">€273.00</span>
             </span>
 
-            <span v-show="linkbtn" @click="showcost" class="link-text"
-              >Link</span
-            >
+            <span v-show="linkbtn" @click="showcost" class="link-text">Link</span>
 
             <span v-show="linkloder" class="loader"></span>
           </div>
@@ -203,35 +195,10 @@ export default {
       return paymentMethod.value !== '';
     });
 
-    const proceedToConfirm = async () => {
-      enableLoader.value = true;
-      order.value.paymentMethod = paymentMethod.value;
-      const params = createConfirmOrderRequest(
-        order.value.transactionId,
-        order.value.cart,
-        order.value.shippingAddress,
-        order.value.billingAddress,
-        order.value.shippingAsBilling,
-        '12.9063433,77.5856825',
-        order.value.initOrder
-      );
-      const confirmResponses = await init(
-        params,
-        context.root.$store.state.token
-      );
-
-      let messageIds = '';
-      confirmResponses.forEach((confirmResponse) => {
-        messageIds += confirmResponse.context?.message_id + ',';
-      });
-      messageIds = messageIds.substring(0, messageIds.length - 1);
-      await poll({ messageIds: messageIds }, context.root.$store.state.token);
-    };
-
     const setOrderHistory = (onConfirmResponse) => {
       // Next Line: To be removed after orderData flow is set
       order.value.order = onConfirmResponse[0].message.order;
-      localStorage.setItem('orderId', onConfirmResponse[0].parent_order_id);
+      localStorage.setItem('orderId', onConfirmResponse[0].message.order.id);
       const parentOrderId = helpers.generateUniqueOrderId();
       const orderData = {};
 
@@ -299,11 +266,6 @@ export default {
 
       localStorage.setItem('orderObject', JSON.stringify(orderObjectPrsed));
 
-      //TODO right now just commenting it. Will remove after concreting the requirement
-      // const encodedOrderDetails = btoa(JSON.stringify(orderObjectPrsed));
-
-      // localStorage.setItem('encodedOrderDetails', encodedOrderDetails);
-
       context.root.$router.push({
         path: '/ordersuccess',
         query: {
@@ -312,21 +274,35 @@ export default {
       });
     };
 
+    const proceedToConfirm = async () => {
+      enableLoader.value = true;
+      console.log('order.valueeee', order.value)
+      order.value.paymentMethod = paymentMethod.value;
+      const params = createConfirmOrderRequest(
+        order.value.transactionId,
+        order.value.cart,
+        order.value.shippingAddress,
+        order.value.billingAddress,
+        order.value.shippingAsBilling,
+        '12.9063433,77.5856825',
+        order.value.initOrder
+      );
+
+      try {
+        const confirmResponses = await init(
+          params,
+          context.root.$store.state.token
+        );
+
+        setOrderHistory(confirmResponses[0].message.responses);
+      } catch (error) {
+        console.error(`error in confirm response ${error}`)
+      }
+    };
+
     const goBack = () => context.root.$router.back();
 
-    watch(
-      () => pollResults.value,
-      (onConfirmResponse) => {
-        if (!polling.value || !onConfirmResponse) {
-          return;
-        }
 
-        if (helpers.shouldStopPooling(onConfirmResponse, 'order')) {
-          stopPolling();
-          setOrderHistory(onConfirmResponse);
-        }
-      }
-    );
 
     onBeforeMount(() => {
       order.value = JSON.parse(localStorage.getItem('orderProgress'));
@@ -371,6 +347,7 @@ export default {
   left: 0;
   margin: 10px;
 }
+
 .badge {
   background: #387f9a;
   background: #387f9a;
@@ -387,6 +364,7 @@ export default {
 
   letter-spacing: 0.6px;
 }
+
 .loader {
   width: 18px;
   height: 18px;
@@ -395,6 +373,7 @@ export default {
   top: 18px;
   animation: rotate 1s linear infinite;
 }
+
 .loader::before {
   content: '';
   box-sizing: border-box;
@@ -415,15 +394,19 @@ export default {
   0% {
     clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
   }
+
   25% {
     clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
   }
+
   50% {
     clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
   }
+
   75% {
     clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
   }
+
   100% {
     clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
   }
@@ -438,6 +421,7 @@ export default {
   font-weight: 600;
   color: #37474f;
 }
+
 .link-text {
   position: relative;
   top: 16px;
@@ -448,6 +432,7 @@ export default {
   line-height: 18px;
   color: #387f9a;
 }
+
 .sub-heading {
   margin: 16px 0px;
   display: flex;
