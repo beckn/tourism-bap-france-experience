@@ -501,7 +501,7 @@ export default {
       statusResult.value.forEach((currentStatusData, index) => {
         if (currentStatusData.message?.order) {
           orderStatusData[index] = currentStatusData.message.order;
-          orderObjectFetchUrl.value = currentStatusData.order_url;
+          orderObjectFetchUrl.value = currentStatusData.qr_url;
         }
       });
 
