@@ -248,9 +248,9 @@ export const createStatusTrackAndSupportOrderRequest = (
           domain: 'tourism'
         },
         message: {
-          [idKey]: orderValue.order.id,
-          order_object: orderObject
-        }
+          [idKey]: orderValue.order.id
+        },
+        order_object: orderObject
       }
     ]
   };
