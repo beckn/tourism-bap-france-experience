@@ -7,7 +7,7 @@ export const calculateDays = (_date1, _date2) => {
   const date2 = new Date(_date2);
   const diffTime = Math.abs(date2.getTime() - date1.getTime());
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  console.log(diffDays + ' days');
+
   return diffDays;
 };
 
@@ -89,25 +89,58 @@ export const createOrderRequest = (
     cart
   );
 
-  const initOrderRequest = [];
-
-  Object.keys(cartItemsPerBppPerProvider).forEach((bppId) => {
-    Object.keys(cartItemsPerBppPerProvider[bppId]).forEach((providerId) => {
-      const initItems = {
+  const initOrderRequest = {
+    initRequestDto: [
+      {
         context: {
           transaction_id: transactionId,
-          bpp_id: bppId,
-          bpp_uri: cart.bpp_uri
+          bpp_id: cart.items[0].bpp.id,
+          bpp_uri: cart.bpp_uri,
+          domain: 'tourism'
         },
         message: {
-          items: cartItemsPerBppPerProvider[bppId][providerId],
-          billing_info: bAddress,
-          delivery_info: deliveryInfo
+          order: {
+            provider: {
+              id: cart.items[0].bppProvider.id,
+              locations: [
+                {
+                  id: cart.items[0].location_id
+                }
+              ]
+            },
+            items: [
+              {
+                quantity: {
+                  count: 1
+                },
+                id:
+                  './retail.kirana/ind.blr/17592186046815@mandi.succinct.in.item'
+              }
+            ],
+            addOns: [],
+            offers: [],
+            billing: bAddress,
+            fulfillment: {
+              type: deliveryInfo.type,
+              end: {
+                location: deliveryInfo.location,
+                contact: {
+                  phone: deliveryInfo.phone,
+                  email: deliveryInfo.email
+                }
+              },
+              customer: {
+                person: {
+                  name: deliveryInfo.name
+                }
+              },
+              id: cart.items[0].bppProvider.id
+            }
+          }
         }
-      };
-      initOrderRequest.push(initItems);
-    });
-  });
+      }
+    ]
+  };
 
   return initOrderRequest;
 };
@@ -130,33 +163,63 @@ export const createConfirmOrderRequest = (
   const cartItemsPerBppPerProvider = cartGetters.getCartItemsPerBppPerProvider(
     cart
   );
-  const confirmOrderRequest = [];
 
-  Object.keys(cartItemsPerBppPerProvider).forEach((bppId) => {
-    Object.keys(cartItemsPerBppPerProvider[bppId]).forEach((providerId) => {
-      const initItems = {
+  const confirmOrderRequest = {
+    confirmRequestDto: [
+      {
         context: {
           transaction_id: transactionId,
-          bpp_id: bppId,
-          bpp_uri: cart.bpp_uri
+          bpp_id: cart.items[0].bpp.id,
+          bpp_uri: cart.bpp_uri,
+          domain: 'tourism'
         },
         message: {
-          items: cartItemsPerBppPerProvider[bppId][providerId],
-          billing_info: billingInfo,
-          delivery_info: deliveryInfo,
-          payment: {
-            paid_amount:
-              initOrderData[bppId][providerId]?.payment?.params?.amount,
-            status: 'PAID',
-            transaction_id: transactionId,
-            currency:
-              initOrderData[bppId][providerId]?.payment?.params?.currency
+          order: {
+            provider: {
+              id: cart.items[0].bppProvider.id
+            },
+            items: [
+              {
+                quantity: {
+                  count: cart.items[0].quantity
+                },
+                id: cart.items[0].id
+              }
+            ],
+            addOns: [],
+            offers: [],
+            billing: {
+              name: billingInfo.name,
+              phone: billingInfo.phone,
+              address: billingInfo.billingInfo,
+              email: billingInfo.email
+            },
+            fulfillment: {
+              type: deliveryInfo.type,
+              end: {
+                location: deliveryInfo.location,
+                contact: {
+                  phone: deliveryInfo.phone,
+                  email: deliveryInfo.email
+                }
+              },
+              customer: {
+                person: {
+                  name: deliveryInfo.name
+                }
+              },
+              id: initOrderData.fulfillment.id
+            },
+            payment: {
+              params: initOrderData.params,
+              type: initOrderData.payment.type,
+              status: initOrderData.payment.status
+            }
           }
         }
-      };
-      confirmOrderRequest.push(initItems);
-    });
-  });
+      }
+    ]
+  };
 
   return confirmOrderRequest;
 };
@@ -170,23 +233,27 @@ export const createConfirmOrderRequest = (
 export const createStatusTrackAndSupportOrderRequest = (
   orderValue,
   idKey,
+  requestDtoName,
   orderObject
 ) => {
   const { transactionId, orderData } = orderValue;
-  const request = [];
-  Object.keys(orderData).forEach((orderId) => {
-    const supportItems = {
-      context: {
-        transaction_id: transactionId,
-        bpp_id: orderData[orderId].bppId
-      },
-      message: {
-        [idKey]: orderId
-      },
-      order_object: orderObject
-    };
-    request.push(supportItems);
-  });
+
+  const request = {
+    [requestDtoName]: [
+      {
+        context: {
+          bpp_id: orderValue.order.bppId,
+          bpp_uri: orderValue.cart.bpp_uri,
+          transaction_id: transactionId,
+          domain: 'tourism'
+        },
+        message: {
+          [idKey]: orderValue.order.id
+        },
+        order_object: orderObject
+      }
+    ]
+  };
   return request;
 };
 

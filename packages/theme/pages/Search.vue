@@ -42,23 +42,26 @@
               </div>
             </div>
             <div v-for="(bpp, bppIndex) in pollResults" :key="bppIndex">
-              <div v-for="(provider, prIndex) in bpp.bpp_providers" :key="prIndex">
-                <div v-for="(product, pIndex) in provider.items" :key="bppIndex +
-                  '-' +
-                  prIndex +
-                  '-' +
-                  pIndex +
-                  '-' +
-                  keyVal +
-                  'product'
-                  " class="results--mobile">
-                  <ProductCard @goToProduct="goToProduct(product, provider, bpp)" :pName="productGetters.getName(product)"
-                    :pProviderName="providerGetters.getProviderName(provider)" :pBppName="bpp.bpp_descriptor.name"
-                    :pPrice="productGetters.getPrice(product).regular"
-                    :pImage="productGetters.getGallery(product)[0].small[0]"
-                    :pWieght="productGetters.getProductWeight(product) + ' kg'"
-                    :pCount="cartGetters.getItemQty(isInCart({ product }))" @updateItemCount="(item) => updateItemCount(item, provider, bpp, pIndex)
-                      " :horizontalView="false" />
+              <div v-if="bpp.message">
+                <div v-for="(provider, prIndex) in bpp.message.catalog['bpp/providers']" :key="prIndex">
+                  <div v-for="(product, pIndex) in provider.items" :key="bppIndex +
+                    '-' +
+                    prIndex +
+                    '-' +
+                    pIndex +
+                    '-' +
+                    keyVal +
+                    'product'
+                    " class="results--mobile">
+                    <ProductCard @goToProduct="goToProduct(product, provider, bpp)"
+                      :pName="productGetters.getName(product)" :pProviderName="providerGetters.getProviderName(provider)"
+                      :pBppName="bpp.message.catalog['bpp/descriptor'].name"
+                      :pPrice="productGetters.getPrice(product).regular"
+                      :pImage="productGetters.getGallery(product)[0].small[0]"
+                      :pWieght="productGetters.getProductWeight(product) + ' kg'"
+                      :pCount="cartGetters.getItemQty(isInCart({ product }))" @updateItemCount="(item) => updateItemCount(item, provider, bpp, pIndex)
+                        " :horizontalView="false" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -111,7 +114,6 @@ import {
   cartGetters,
   useCart,
   useFacet,
-  useSearch
 } from '@vue-storefront/beckn';
 import helpers from '../helpers/helpers';
 
@@ -132,7 +134,6 @@ export default {
     const {
       searchString,
       changeSearchString,
-      selectedLocation,
       toggleLoadindBar,
       clearCartPopup
     } = useUiState();
@@ -143,19 +144,12 @@ export default {
     const { addItem, cart, isInCart, load } = useCart();
     const data = context.root.$route.params.searchKey;
     const text = 'Connecting to Open Network for Commerce and Culture';
+    const pollResults = ref([]);
     const searchKey = ref(data);
     const enableLoader = ref(Boolean(data));
     const keyVal = ref(0);
     const { search, result } = useFacet();
-    const { pollResults, poll, polling, stopPolling } = useSearch('search');
     const noSearchFound = ref(false);
-
-    const openSearchByDropdown = ref(false);
-    const selectedSearchByOption = ref(
-      context.root.$route.params.searchBy || 'search-by-all'
-    );
-
-    console.log(cart);
 
     watch(
       () => clearCartPopup.value,
@@ -167,7 +161,7 @@ export default {
     );
 
     const handleSearch = debounce((paramValue) => {
-      if (polling.value) stopPolling();
+
       enableLoader.value = true;
       if (noSearchFound.value) noSearchFound.value = false;
       toggleLoadindBar(false);
@@ -178,51 +172,19 @@ export default {
         category: 'TourismEnglish'
         // eslint-disable-next-line no-unused-vars
       }).then((_) => {
+        pollResults.value = result.value.data.ackResponse.message.catalogs
         localStorage.setItem(
           'transactionId',
           result.value.data.ackResponse.context.transaction_id
         );
+        if (result.value.data.ackResponse.message.catalogs.length === 0) {
+          noSearchFound.value = true;
+        }
 
-        console.log('selectedOption', selectedSearchByOption);
-
-        poll({
-          // eslint-disable-next-line camelcase
-          message_id: result.value.data.ackResponse.context.message_id,
-          providerName:
-            selectedSearchByOption.value === 'search-by-seller'
-              ? paramValue
-              : null
-        });
+        enableLoader.value = false;
+        toggleLoadindBar(true);
       });
-
-      console.log('result value', pollResults.value);
     }, 1000);
-
-    watch(
-      () => pollResults.value,
-      (newValue) => {
-        if (newValue?.length > 0 && enableLoader.value) {
-          enableLoader.value = false;
-          toggleLoadindBar(true);
-        }
-      }
-    );
-
-    watch(
-      () => polling.value,
-      (newValue) => {
-        if (!newValue) {
-          enableLoader.value = false;
-          toggleLoadindBar(false);
-          if (pollResults?.value.length === 0) {
-            noSearchFound.value = true;
-          }
-        } else {
-          enableLoader.value = true;
-          noSearchFound.value = false;
-        }
-      }
-    );
 
     onBeforeMount(async () => {
       await load();
@@ -237,7 +199,6 @@ export default {
           handleSearch(value.target.value);
         } else {
           changeSearchString(value.target.value);
-          console.log(searchString.value);
         }
       }
     };
@@ -251,7 +212,6 @@ export default {
 
     const onSearchChange = (value) => {
       searchKey.value = value;
-      console.log(searchKey.value);
     };
 
     const clearSearch = () => {
@@ -259,7 +219,6 @@ export default {
     };
 
     const totalResults = computed(() => {
-      console.log('pollREsults', pollResults);
       let reusltNum = 0;
       for (const bpp of pollResults?.value) {
         if (bpp.bpp_providers) {
@@ -279,23 +238,19 @@ export default {
       return pollResults?.value?.length;
     });
 
-    console.log('pollresults', pollResults);
-
     const footerClick = () => {
       context.root.$router.push('/cart');
     };
 
     const goToProduct = (product, provider, bpp) => {
-      console.log('provider of the product 1', provider);
-      console.log('bpp of the product 1', bpp);
-      console.log('this is a test log 1');
       const data = btoa(
         helpers.toBinary(
           JSON.stringify({
             product,
             bpp: {
-              id: bpp.bpp_id,
-              descriptor: bpp.bpp_descriptor
+              id: bpp.context.bpp_id,
+              descriptor: bpp.message.catalog['bpp/descriptor'],
+              uri: bpp.context.bpp_uri
             },
             bppProvider: {
               id: provider.id,

@@ -4,10 +4,10 @@ import { SearchItemsWhere } from './../../src/types/Search';
 /* eslint  camelcase: 0 */
 
 describe('[beckn-api-client] getProduct', () => {
-
   const searchItemsWhere: SearchItemsWhere = {
     itemContains: 'sofa',
-    locationIs: '40.741895,-73.989308'
+    locationIs: '40.741895,-73.989308',
+    category: ''
   };
 
   const thenHandler = {
@@ -22,7 +22,11 @@ describe('[beckn-api-client] getProduct', () => {
     }
   };
   const queryHandler = {
-    send: ({message: {criteria: { search_string, delivery_location }}}) => {
+    send: ({
+      message: {
+        criteria: { search_string, delivery_location }
+      }
+    }) => {
       expect(search_string).toEqual(searchItemsWhere.itemContains);
       expect(delivery_location).toEqual(searchItemsWhere.locationIs);
       return thenHandler;
@@ -49,5 +53,4 @@ describe('[beckn-api-client] getProduct', () => {
     const ackResponse = await getProduct(context, searchItemsWhere);
     expect(ackResponse.message.ack.status).toBe('ACK');
   });
-
 });

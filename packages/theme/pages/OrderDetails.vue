@@ -17,31 +17,7 @@
     </div>
 
     <div v-if="!enableLoader" class="details">
-      <!-- <div class="sub-heading">
-        <div class="p-name">Items</div>
-      </div> -->
 
-      <!-- <div
-        :key="index + 'new'"
-        v-for="(product, index) in cartGetters.getItems(order.cart)"
-        class="checkout-product"
-      >
-        <div class="s-p-image">
-          <SfImage
-            :src="cartGetters.getItemImage(product)"
-            alt="product img"
-            :width="85"
-            :height="90"
-          />
-        </div>
-        <div class="s-p-details">
-          <div class="s-p-name">{{ cartGetters.getItemName(product) }}</div>
-          <div class="s-p-weight">x {{ cartGetters.getItemQty(product) }}</div>
-          <div class="s-p-price">
-            €  {{ cartGetters.getItemPrice(product).regular }}
-          </div>
-        </div>
-      </div> -->
       <Card>
         <SfAccordion>
           <h5 style="color:#387f9a;font-size: 17px;
@@ -454,7 +430,6 @@ export default {
     QrcodeVue
   },
   setup(_, context) {
-    // const isThankYou = computed(() => currentStep.value === 'thank-you');
 
     const order = ref(null);
     const orderPlacementTime = ref(null);
@@ -462,6 +437,9 @@ export default {
     const selectedTrackingId = ref(null);
     const selectedSupportId = ref(null);
     const selectMoreItemsId = ref(null);
+    const statusResult = ref(null)
+    const supportResult = ref(null)
+    const trackResult = ref(null)
     const { clear } = useCart();
     const openQR = ref(false);
     const parentOrderIdOfTheCurentOrder = ref('');
@@ -480,23 +458,16 @@ export default {
     const encodedOrderDetails = localStorage.getItem('encodedOrderDetails');
 
     const {
-      poll: onTrack,
       init: track,
-      pollResults: trackResult,
       stopPolling: stopPollingOnTrack
     } = useTrack('track');
     const {
-      poll: onSupport,
       init: support,
-      pollResults: supportResult,
       stopPolling: stopPollingSupport
     } = useSupport('support');
 
     const {
-      poll: onStatus,
       init: status,
-      pollResults: statusResult,
-      stopPolling: stopStatusPolling
     } = useOrderStatus('status');
 
     const trackingData = computed(() => {
@@ -530,7 +501,7 @@ export default {
       statusResult.value.forEach((currentStatusData, index) => {
         if (currentStatusData.message?.order) {
           orderStatusData[index] = currentStatusData.message.order;
-          orderObjectFetchUrl.value = currentStatusData.order_url;
+          orderObjectFetchUrl.value = currentStatusData.qr_url;
         }
       });
 
@@ -610,6 +581,7 @@ export default {
     const openSupportModal = ref(false);
     const openTrackModal = ref(false);
     const openItemsModal = ref(false);
+    let intervalId
     const goHome = () => {
       localStorage.clear();
       context.root.$router.push('/');
@@ -620,14 +592,13 @@ export default {
     const callSupport = async () => {
       const params = createStatusTrackAndSupportOrderRequest(
         order.value,
-        'ref_id'
+        'ref_id',
+        'supportRequestDto'
       );
       try {
         const response = await support(params, context.root.$store.state.token);
-        await onSupport(
-          { messageIds: helpers.getMessageIdsFromResponse(response) },
-          context.root.$store.state.token
-        );
+        supportResult.value = response
+
       } catch (error) {
         console.log('Error calling support apis - ', error);
       }
@@ -637,14 +608,13 @@ export default {
       const params = createStatusTrackAndSupportOrderRequest(
         order.value,
         'order_id',
+        'statusRequestDto',
         JSON.parse(localStorage.getItem('orderObject'))
       );
       try {
         const response = await status(params, context.root.$store.state.token);
-        await onStatus(
-          { orderIds: order.value.order.id },
-          context.root.$store.state.token
-        );
+        statusResult.value = response
+
       } catch (error) {
         console.log('Error calling track apis - ', error);
       }
@@ -653,14 +623,12 @@ export default {
     const callTrack = async () => {
       const params = createStatusTrackAndSupportOrderRequest(
         order.value,
-        'order_id'
+        'order_id',
+        'trackRequestDto'
       );
       try {
         const response = await track(params, context.root.$store.state.token);
-        await onTrack(
-          { messageIds: helpers.getMessageIdsFromResponse(response) },
-          context.root.$store.state.token
-        );
+        trackResult.value = response
       } catch (error) {
         console.log('Error calling track apis - ', error);
       }
@@ -685,11 +653,15 @@ export default {
       enableLoader.value = false;
       localStorage.removeItem('orderProgress');
       localStorage.removeItem('transactionId');
-      clear();
-    });
 
-    onBeforeUnmount(async () => {
-      stopStatusPolling();
+      intervalId = setInterval(async () => {
+        await callStatus()
+      }, 1000);
+
+      onBeforeUnmount(() => {
+        clearInterval(intervalId);
+      })
+      clear();
     });
 
     const openWindow = (link) => {
@@ -729,7 +701,10 @@ export default {
       orderObjectForQR,
       productName,
       parentOrderIdOfTheCurentOrder,
-      orderObjectFetchUrl
+      orderObjectFetchUrl,
+      statusResult,
+      trackResult,
+      supportResult
     };
   },
   methods: {
