@@ -17,7 +17,6 @@
     </div>
 
     <div v-if="!enableLoader" class="details">
-
       <Card>
         <SfAccordion>
           <h5 style="color:#387f9a;font-size: 17px;
@@ -58,11 +57,6 @@
               <div class="address-text"><span>Status</span></div>
               <div class="status-text">
                 <span>
-                  <!-- {{
-                    orderStatusData[index].state.charAt(0).toUpperCase() +
-                      orderStatusData[index].state.slice(1).toLowerCase()
-                
-                  }} -->
                   Confirmed
                 </span>
               </div>
@@ -167,7 +161,7 @@
           </h5>
           <CardContent class="flex-space-bw">
             <div class="open-wallet-QR-container">
-              <qrcode-vue :value="`https://experience-guide.becknprotocol.io/wallet?${encodedOrderDetails}`
+              <qrcode-vue :value="`https://experience-guide-staging.becknprotocol.io/wallet?${encodedOrderDetails}`
                 " size="200" level="L" />
             </div>
           </CardContent>
@@ -430,16 +424,15 @@ export default {
     QrcodeVue
   },
   setup(_, context) {
-
     const order = ref(null);
     const orderPlacementTime = ref(null);
     const enableLoader = ref(true);
     const selectedTrackingId = ref(null);
     const selectedSupportId = ref(null);
     const selectMoreItemsId = ref(null);
-    const statusResult = ref(null)
-    const supportResult = ref(null)
-    const trackResult = ref(null)
+    const statusResult = ref(null);
+    const supportResult = ref(null);
+    const trackResult = ref(null);
     const { clear } = useCart();
     const openQR = ref(false);
     const parentOrderIdOfTheCurentOrder = ref('');
@@ -457,18 +450,12 @@ export default {
     const orderObjectForQR = JSON.stringify(exportingOrderObject, undefined, 2);
     const encodedOrderDetails = localStorage.getItem('encodedOrderDetails');
 
-    const {
-      init: track,
-      stopPolling: stopPollingOnTrack
-    } = useTrack('track');
-    const {
-      init: support,
-      stopPolling: stopPollingSupport
-    } = useSupport('support');
+    const { init: track, stopPolling: stopPollingOnTrack } = useTrack('track');
+    const { init: support, stopPolling: stopPollingSupport } = useSupport(
+      'support'
+    );
 
-    const {
-      init: status,
-    } = useOrderStatus('status');
+    const { init: status } = useOrderStatus('status');
 
     const trackingData = computed(() => {
       if (!trackResult.value) {
@@ -581,7 +568,7 @@ export default {
     const openSupportModal = ref(false);
     const openTrackModal = ref(false);
     const openItemsModal = ref(false);
-    let intervalId
+    let intervalId;
     const goHome = () => {
       localStorage.clear();
       context.root.$router.push('/');
@@ -597,8 +584,7 @@ export default {
       );
       try {
         const response = await support(params, context.root.$store.state.token);
-        supportResult.value = response
-
+        supportResult.value = response;
       } catch (error) {
         console.log('Error calling support apis - ', error);
       }
@@ -613,8 +599,7 @@ export default {
       );
       try {
         const response = await status(params, context.root.$store.state.token);
-        statusResult.value = response
-
+        statusResult.value = response;
       } catch (error) {
         console.log('Error calling track apis - ', error);
       }
@@ -628,7 +613,7 @@ export default {
       );
       try {
         const response = await track(params, context.root.$store.state.token);
-        trackResult.value = response
+        trackResult.value = response;
       } catch (error) {
         console.log('Error calling track apis - ', error);
       }
@@ -655,12 +640,12 @@ export default {
       localStorage.removeItem('transactionId');
 
       intervalId = setInterval(async () => {
-        await callStatus()
+        await callStatus();
       }, 1000);
 
       onBeforeUnmount(() => {
         clearInterval(intervalId);
-      })
+      });
       clear();
     });
 
@@ -703,7 +688,6 @@ export default {
       parentOrderIdOfTheCurentOrder,
       orderObjectFetchUrl,
       statusResult,
-      trackResult,
       supportResult
     };
   },
@@ -712,7 +696,7 @@ export default {
       console.log(exp, value);
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(',', '.');
+      const val = (value / 1).toFixed(2).replace(',', '.');
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
   }
