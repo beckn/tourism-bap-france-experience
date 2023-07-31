@@ -33,7 +33,7 @@ export default async function getProduct(
   Logger.error(qParams);
   return client
     .post(
-      'https://api-node-dev.mobilityreferencebap.becknprotocol.io/client/v2/search'
+      'https://api-node.mobilityreferencebap.becknprotocol.io/client/v2/search'
     )
     .send(qParams)
     .then((res) => {

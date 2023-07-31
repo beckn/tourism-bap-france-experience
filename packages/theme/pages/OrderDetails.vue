@@ -161,7 +161,7 @@
           </h5>
           <CardContent class="flex-space-bw">
             <div class="open-wallet-QR-container">
-              <qrcode-vue :value="`https://experience-guide-staging.becknprotocol.io/wallet?${encodedOrderDetails}`
+              <qrcode-vue :value="`https://experience-guide.becknprotocol.io/wallet?${encodedOrderDetails}`
                 " size="200" level="L" />
             </div>
           </CardContent>
