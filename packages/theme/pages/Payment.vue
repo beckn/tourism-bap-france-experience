@@ -414,6 +414,9 @@ export default {
 
 .details {
   margin: 2px 20px;
+  height: calc(100vh - 130px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .p-name {

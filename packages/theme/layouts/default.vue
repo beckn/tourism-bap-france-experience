@@ -72,6 +72,9 @@ export default {
     margin: auto;
   }
 }
+#layout::-webkit-scrollbar {
+  display: none;
+}
 
 .no-scroll {
   overflow: hidden;
