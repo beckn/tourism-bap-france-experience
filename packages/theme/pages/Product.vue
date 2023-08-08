@@ -222,6 +222,10 @@ export default {
   }
 }
 
+.product-wraper {
+  height: calc(100vh - 130px);
+  overflow: auto;
+}
 .prod-info-child {
   @extend .prod-info;
   margin-top: 0;
