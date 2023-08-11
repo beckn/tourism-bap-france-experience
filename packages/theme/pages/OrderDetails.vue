@@ -704,6 +704,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.loader-circle {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  // top: 130px;
+  left: 0;
+  height: 64vh;
+}
+
 .open-wallet-QR-container {
   display: block;
   margin: auto;
@@ -765,7 +774,7 @@ export default {
   padding: 20px;
   //height: calc(100vh - 149px);
   height: calc(100vh - 160px);
-  overflow-y:auto ;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -786,6 +795,7 @@ export default {
   display: flex;
   align-self: center;
   margin-left: 6px;
+  overflow: hidden;
 
   span {
     font-weight: 500;
