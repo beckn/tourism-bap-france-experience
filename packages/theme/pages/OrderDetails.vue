@@ -632,9 +632,9 @@ export default {
         order.value.order?.created_at
       );
 
+      await callStatus();
       await callTrack();
       await callSupport();
-      await callStatus();
       enableLoader.value = false;
       localStorage.removeItem('orderProgress');
       localStorage.removeItem('transactionId');

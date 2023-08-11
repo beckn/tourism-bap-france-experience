@@ -113,8 +113,7 @@ export const createOrderRequest = (
                 quantity: {
                   count: 1
                 },
-                id:
-                  './retail.kirana/ind.blr/17592186046815@mandi.succinct.in.item'
+                id: cart.items[0].id
               }
             ],
             addOns: [],
